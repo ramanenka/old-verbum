@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(.*?)/?$ index.php?__url_path=$1 [QSA]
