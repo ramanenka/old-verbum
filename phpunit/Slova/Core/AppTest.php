@@ -20,4 +20,14 @@ class AppTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($found, 'App class should register an autoloader');
     }
 
+    public function testServe() {
+        /** @var App $app */
+        $app = $this->getMockBuilder('Slova\Core\App')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $app->serve();
+    }
+
 }
