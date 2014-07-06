@@ -35,7 +35,7 @@ class App {
      */
     protected function setIncludePath() {
         set_include_path(implode(PATH_SEPARATOR,
-            array_merge(explode(PATH_SEPARATOR, get_include_path()), [BASE_PATH. '/src'])));
+            array_merge([BASE_PATH. '/src'], explode(PATH_SEPARATOR, get_include_path()))));
     }
 
     /**
