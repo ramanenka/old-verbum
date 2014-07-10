@@ -43,11 +43,20 @@ class FrontController {
     }
 
     protected function prepareActionArguments($controller, $action, $params) {
-        $result = array();
+        $result = [];
+        $objects = [$this->app, $this->app->getRequest(), $this->app->getResponse(), $this];
 
         $method = new \ReflectionMethod($controller, $action);
         foreach ($method->getParameters() as $param) {
-            if (isset($params[$param->getName()])) {
+            $object = false;
+            if ($param->getClass()) {
+                $object = reset(array_filter($objects, function($object) use ($param) {
+                    return is_a($object, $param->getClass()->getName());
+                }));
+            }
+            if ($object) {
+                $result[] = $object;
+            } elseif (isset($params[$param->getName()])) {
                 $result[] = $params[$param->getName()];
             } elseif ($param->isDefaultValueAvailable()) {
                 $result[] = $param->getDefaultValue();
