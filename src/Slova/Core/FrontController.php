@@ -68,11 +68,15 @@ class FrontController {
         return $result;
     }
 
-//    public function forward($routeName, $params = array()) {
-//
-//    }
+    public function forward($routeName, $params = array()) {
+        throw new ForwardException($routeName, $params);
+    }
 
-//    public function noRoute() {
-//
-//    }
+    public function noRoute() {
+
+    }
+
+    public function exception(Exception $e) {
+
+    }
 } 
