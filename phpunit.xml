@@ -1,7 +1,7 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
-        bootstrap="bootstrap.php"
+        bootstrap="phpunit/bootstrap.php"
         cacheTokens="false"
         colors="true"
         convertErrorsToExceptions="true"
@@ -9,7 +9,7 @@
         convertWarningsToExceptions="true">
     <testsuites>
         <testsuite name="core">
-            <directory>Slova/Core</directory>
+            <directory>phpunit/Slova/Core</directory>
         </testsuite>
     </testsuites>
 </phpunit>
