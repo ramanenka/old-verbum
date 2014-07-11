@@ -1,5 +1,5 @@
 <?php
-
+//adding some code for travis
 define('BASE_PATH', dirname(__DIR__));
 
 require_once BASE_PATH.'/src/Slova/Core/App.php';
