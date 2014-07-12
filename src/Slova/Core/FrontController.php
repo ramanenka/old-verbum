@@ -50,9 +50,9 @@ class FrontController {
         foreach ($method->getParameters() as $param) {
             $object = false;
             if ($param->getClass()) {
-                $object = reset(array_filter($objects, function($object) use ($param) {
+                $object = array_values(array_filter($objects, function($object) use ($param) {
                     return is_a($object, $param->getClass()->getName());
-                }));
+                }))[0];
             }
             if ($object) {
                 $result[] = $object;
