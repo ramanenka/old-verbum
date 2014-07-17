@@ -92,7 +92,7 @@ class Dispatcher {
                 try {
                     $handler = $this->app->config['routes'][$route]['handler'];
                     $this->getFrontController()->serve($handler, $params);
-                    break;
+                    return;
                 } catch (ForwardException $e) {
                     $route = $e->getNewRouteName();
                     $params = $e->getNewRouteParams();

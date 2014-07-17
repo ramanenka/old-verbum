@@ -6,6 +6,6 @@ namespace Slova\Core;
 class Request {
 
     public function get($name, $default = null) {
-        return $default;
+        return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
     }
 } 

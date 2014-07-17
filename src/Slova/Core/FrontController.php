@@ -72,11 +72,12 @@ class FrontController {
         throw new ForwardException($routeName, $params);
     }
 
-    public function noRoute() {
-
+    public function notFound() {
+        http_response_code(404);
     }
 
     public function exception(Exception $e) {
-
+        http_response_code(500);
+        echo $e->getMessage();
     }
 } 
