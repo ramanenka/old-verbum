@@ -11,4 +11,9 @@ $config['routes'] = [
         'path' => 'test',
         'priority' => 200
     ],
+    'panel-index' => [
+        'handler' => ['\Slova\Panel\IndexController', 'indexAction'],
+        'path' => 'panel',
+        'priority' => 200
+    ],
 ];
