@@ -1,10 +1,14 @@
 <?php /** @var $this Slova\Dict\MainTemplate */
 ?><!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Мадэрновы Соўнік Беларускай Мовы</title>
-    </head>
-    <body>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Мадэрновы Соўнік Беларускай Мовы</title>
+</head>
+<body>
+    <div id="slova"></div>
+    <?php foreach ($this->getJSFilesList() as $jsFile) { ?>
+        <script src="<?= $jsFile ?>"></script>
+    <?php } ?>
+</body>
 </html>

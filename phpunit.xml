@@ -11,5 +11,11 @@
         <testsuite name="core">
             <directory>phpunit/Slova/Core</directory>
         </testsuite>
+        <testsuite name="dict">
+            <directory>phpunit/Slova/Dict</directory>
+        </testsuite>
+        <testsuite name="panel">
+            <directory>phpunit/Slova/Panel</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
