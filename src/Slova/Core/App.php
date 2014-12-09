@@ -44,6 +44,7 @@ class App {
         $this->config = $config;
         $this->setIncludePath();
         $this->registerAutoloader();
+        $this->defineGlobalConstants();
     }
 
     /**
@@ -63,6 +64,10 @@ class App {
         if (!spl_autoload_register(array(new Autoloader(), 'doIt'))) {
             throw new Exception("Failed to register autoloader.");
         }
+    }
+
+    protected function defineGlobalConstants() {
+        define('DS', DIRECTORY_SEPARATOR);
     }
 
     /**

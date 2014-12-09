@@ -6,7 +6,7 @@ use Slova\Core\Response;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {
-    public function indexActionTest()
+    public function testIndexActionTest()
     {
         $controller = new IndexController();
         $response = new Response();

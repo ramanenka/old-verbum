@@ -20,6 +20,10 @@ class AppTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($found, 'App class should register an autoloader');
     }
 
+    public function testDefineGlobalConstants() {
+        $this->assertTrue(defined('DS'), 'DS constant must be defined');
+    }
+
     public function testServe() {
         /** @var App $app */
         $app = $this->getMockBuilder('Slova\Core\App')
