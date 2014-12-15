@@ -37,6 +37,9 @@ class Router {
         });
 
         foreach ($routes as $routeName => $route) {
+            if (isset($route['method']) && $route['method'] != $this->app->getRequest()->getMethod()) {
+                continue;
+            }
             list($regexp, $names) = $this->prepareRegExp($route['path']);
             $matches = [];
             $matchResult = preg_match($regexp, $path, $matches);
