@@ -1,6 +1,14 @@
 {
+    "name": "Slova project",
+    "description": "Modern vocabulary of Belarussian language",
     "require": {
         "ruflin/elastica": "~1.3",
-        "phpunit/phpunit": "~4.4"
+        "phpunit/phpunit": "~4.4",
+        "silex/silex": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Slova\\": "app/"
+        }
     }
 }
