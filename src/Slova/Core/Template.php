@@ -2,7 +2,7 @@
 
 namespace Slova\Core;
 
+class Template
+{
 
-class Template {
-
-} 
+}

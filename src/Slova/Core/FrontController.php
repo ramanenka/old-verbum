@@ -2,47 +2,53 @@
 
 namespace Slova\Core;
 
-
-class FrontController {
-
+class FrontController
+{
     /**
      * @var App
      */
     protected $app;
 
-    public function __construct(App $app) {
+    public function __construct(App $app)
+    {
         $this->app = $app;
     }
 
-    public function serve($handler, $params) {
+    public function serve($handler, $params)
+    {
         $actionResult = $this->callHandler($handler, $params);
         $this->processActionResult($actionResult);
     }
 
-    protected function processActionResult($actionResult) {
+    protected function processActionResult($actionResult)
+    {
         if (is_array($actionResult)) {
             $this->processActionResultJSON($actionResult);
         }
     }
 
-    protected function processActionResultJSON($actionResult) {
+    protected function processActionResultJSON($actionResult)
+    {
         $this->app->getResponse()
             ->setContent(json_encode($actionResult))
             ->setHeader('Content-Type', 'application/json');
     }
 
-    protected  function callHandler($handler, $params) {
+    protected function callHandler($handler, $params)
+    {
         list ($class, $action) = $handler;
         $controller = $this->instantiateController($class);
         $arguments = $this->prepareActionArguments($controller, $action, $params);
         return call_user_func_array([$controller, $action], $arguments);
     }
 
-    protected function instantiateController($class) {
+    protected function instantiateController($class)
+    {
         return new $class();
     }
 
-    protected function prepareActionArguments($controller, $action, $params) {
+    protected function prepareActionArguments($controller, $action, $params)
+    {
         $result = [];
         $objects = [$this->app, $this->app->getRequest(), $this->app->getResponse(), $this];
 
@@ -50,9 +56,14 @@ class FrontController {
         foreach ($method->getParameters() as $param) {
             $object = false;
             if ($param->getClass()) {
-                $object = array_values(array_filter($objects, function($object) use ($param) {
-                    return is_a($object, $param->getClass()->getName());
-                }))[0];
+                $object = array_values(
+                    array_filter(
+                        $objects,
+                        function ($object) use ($param) {
+                            return is_a($object, $param->getClass()->getName());
+                        }
+                    )
+                )[0];
             }
             if ($object) {
                 $result[] = $object;
@@ -68,16 +79,19 @@ class FrontController {
         return $result;
     }
 
-    public function forward($routeName, $params = array()) {
+    public function forward($routeName, $params = array())
+    {
         throw new ForwardException($routeName, $params);
     }
 
-    public function notFound() {
+    public function notFound()
+    {
         http_response_code(404);
     }
 
-    public function exception(Exception $e) {
+    public function exception(Exception $e)
+    {
         http_response_code(500);
         echo $e->getMessage();
     }
-} 
+}

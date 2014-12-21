@@ -2,8 +2,6 @@
 
 namespace Slova\Core;
 
-require_once 'Autoloader.php';
-
 /**
  * Class App
  *
@@ -11,8 +9,8 @@ require_once 'Autoloader.php';
  *
  * @package Slova\Core
  */
-class App {
-
+class App
+{
     /**
      * Stores application config
      *
@@ -40,7 +38,8 @@ class App {
      *
      * @param array $config
      */
-    public function __construct($config = array()) {
+    public function __construct($config = array())
+    {
         $this->config = $config;
         $this->setIncludePath();
         $this->registerAutoloader();
@@ -50,9 +49,17 @@ class App {
     /**
      * Adds src directory to the include path
      */
-    protected function setIncludePath() {
-        set_include_path(implode(PATH_SEPARATOR,
-            array_merge([BASE_PATH. '/src'], explode(PATH_SEPARATOR, get_include_path()))));
+    protected function setIncludePath()
+    {
+        set_include_path(
+            implode(
+                PATH_SEPARATOR,
+                array_merge(
+                    [$this->config['dir']['base'] . '/src', $this->config['dir']['base'] . '/phpunit'],
+                    explode(PATH_SEPARATOR, get_include_path())
+                )
+            )
+        );
     }
 
     /**
@@ -60,13 +67,15 @@ class App {
      *
      * @throws Exception
      */
-    protected function registerAutoloader() {
+    protected function registerAutoloader()
+    {
         if (!spl_autoload_register(array(new Autoloader(), 'doIt'))) {
             throw new Exception("Failed to register autoloader.");
         }
     }
 
-    protected function defineGlobalConstants() {
+    protected function defineGlobalConstants()
+    {
         define('DS', DIRECTORY_SEPARATOR);
     }
 
@@ -131,7 +140,8 @@ class App {
     /**
      * Serves the agent request
      */
-    public function serve() {
+    public function serve()
+    {
         $this->getDispatcher()->dispatch();
         $this->getResponse()->send();
     }

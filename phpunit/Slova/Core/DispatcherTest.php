@@ -2,13 +2,15 @@
 
 namespace Slova\Core;
 
-class DispatcherTest extends \PHPUnit_Framework_TestCase {
+class DispatcherTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @var App
      */
     protected $app;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         /** @var App app */
         $this->app = $this->getMockBuilder('\Slova\Core\App')
             ->setMethods(null)
@@ -24,7 +26,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         ];
     }
 
-    public function testNormalDispatchCase() {
+    public function testNormalDispatchCase()
+    {
         $routerMock = $this->prepareRouterMock(['name' => 'normal', 'params' => [1, 2, 3]]);
 
         $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
@@ -34,7 +37,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
 
         $fcMock->expects($this->once())
             ->method('serve')
-            ->with($this->equalTo(['HandlerClass', 'handlerAction']), $this->equalTo([1,2,3]));
+            ->with($this->equalTo(['HandlerClass', 'handlerAction']), $this->equalTo([1, 2, 3]));
 
         $dispatcher = new Dispatcher($this->app);
         $dispatcher->setRouter($routerMock);
@@ -42,7 +45,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         $dispatcher->dispatch();
     }
 
-    public function testNoRouteCase() {
+    public function testNoRouteCase()
+    {
         $routerMock = $this->prepareRouterMock(false);
 
         $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
@@ -60,7 +64,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         $dispatcher->dispatch();
     }
 
-    public function testThrowsException() {
+    public function testThrowsException()
+    {
         $routerMock = $this->prepareRouterMock(false);
         $e = new Exception('Test exception');
 
@@ -83,7 +88,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         $dispatcher->dispatch();
     }
 
-    public function testDispatchLoopEnds() {
+    public function testDispatchLoopEnds()
+    {
         $routerMock = $this->prepareRouterMock(['name' => 'normal', 'params' => [1, 2, 3]]);
 
         $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')

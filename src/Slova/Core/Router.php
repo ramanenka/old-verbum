@@ -9,8 +9,8 @@ namespace Slova\Core;
  *
  * @package Slova\Core
  */
-class Router {
-
+class Router
+{
     /**
      * @var App
      */
@@ -19,7 +19,8 @@ class Router {
     /**
      * @param App $app
      */
-    public function __construct(App $app) {
+    public function __construct(App $app)
+    {
         $this->app = $app;
     }
 
@@ -30,11 +31,15 @@ class Router {
      * @return array|bool
      * @throws Exception
      */
-    public function findRoute($path) {
+    public function findRoute($path)
+    {
         $routes = $this->app->config['routes'];
-        uasort($routes, function($a, $b) {
-            return $a['priority'] < $b['priority'];
-        });
+        uasort(
+            $routes,
+            function ($a, $b) {
+                return $a['priority'] < $b['priority'];
+            }
+        );
 
         foreach ($routes as $routeName => $route) {
             if (isset($route['method']) && $route['method'] != $this->app->getRequest()->getMethod()) {
@@ -61,7 +66,8 @@ class Router {
      * @return array
      * @throws Exception
      */
-    protected function prepareRegExp($path) {
+    protected function prepareRegExp($path)
+    {
         $nameMatches = [];
         if (preg_match_all('/:([a-z0-9_-]*)/', $path, $nameMatches) === false) {
             throw new Exception("Error when prag_match_all");
@@ -69,7 +75,7 @@ class Router {
         $names = $nameMatches[1];
         $path = str_replace('/', '\/', $path);
         $path = str_replace($nameMatches[0], '([^\/]+)', $path);
-        return ['/^'.$path.'$/', $names];
+        return ['/^' . $path . '$/', $names];
     }
 
     /**
@@ -79,11 +85,12 @@ class Router {
      * @param $matches
      * @return array
      */
-    protected function prepareParams($names, $matches) {
+    protected function prepareParams($names, $matches)
+    {
         $result = [];
         for ($i = 0; $i < count($names); $i++) {
-            $result[$names[$i]] = $matches[$i+1];
+            $result[$names[$i]] = $matches[$i + 1];
         }
         return $result;
     }
-} 
+}

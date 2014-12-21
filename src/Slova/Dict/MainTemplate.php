@@ -2,8 +2,8 @@
 
 namespace Slova\Dict;
 
-class MainTemplate {
-
+class MainTemplate
+{
     protected $jsFiles = [
         'vendor/jquery/dist/jquery.js',
         'vendor/underscore/underscore.js',
@@ -18,24 +18,29 @@ class MainTemplate {
     /**
      * @return mixed
      */
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template;
     }
 
     /**
      * @param mixed $template
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template = $template;
     }
 
-    public function getJSFilesList() {
+    public function getJSFilesList()
+    {
         return $this->jsFiles;
     }
 
-    public function render() {
+    public function render()
+    {
+        global $app;
         ob_start();
-        require realpath(BASE_PATH . DS . $this->getTemplate());
+        require realpath($app->config['dir']['base'] . DS . $this->getTemplate());
         return ob_get_clean();
     }
 }
