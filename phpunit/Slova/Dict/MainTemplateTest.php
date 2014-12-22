@@ -2,10 +2,11 @@
 
 namespace Slova\Dict;
 
+class MainTemplateTest extends \PHPUnit_Framework_TestCase
+{
 
-class MainTemplateTest extends \PHPUnit_Framework_TestCase {
-
-    public function testGetJSFilesList() {
+    public function testGetJSFilesList()
+    {
         $template = new MainTemplate();
 
         $this->assertInternalType(
@@ -15,7 +16,8 @@ class MainTemplateTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
-    public function testRender() {
+    public function testRender()
+    {
         $template = new MainTemplate();
         $template->setTemplate('phpunit/Slova/Dict/main-template-test.phtml');
 

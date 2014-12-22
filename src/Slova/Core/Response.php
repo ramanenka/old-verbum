@@ -2,18 +2,19 @@
 
 namespace Slova\Core;
 
-
-class Response {
-
+class Response
+{
     protected $content = '';
 
     protected $headers = [];
 
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
 
-    public function getHeaders() {
+    public function getHeaders()
+    {
         return $this->headers;
     }
 
@@ -22,7 +23,8 @@ class Response {
      * @param $value
      * @return $this
      */
-    public function setHeader($name, $value) {
+    public function setHeader($name, $value)
+    {
         $this->headers[$name] = $value;
         return $this;
     }
@@ -31,13 +33,15 @@ class Response {
      * @param $content
      * @return $this
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = $content;
         return $this;
     }
 
-    public function send() {
-        foreach ($this->headers as $name=>$value) {
+    public function send()
+    {
+        foreach ($this->headers as $name => $value) {
             header("$name: $value");
         }
 

@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vad
- * Date: 7/6/14
- * Time: 10:54 AM
- */
 
 namespace Slova\Core;
 
-
-class RouterTest extends \PHPUnit_Framework_TestCase {
-
+class RouterTest extends \PHPUnit_Framework_TestCase
+{
     protected $routes = [
         'default' => [
             'handler' => [],
@@ -43,56 +36,68 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
             'priority' => 300
         ],
         'restricted-by-http-method' => [
-            'handler'  => [],
-            'path'     => 'post',
+            'handler' => [],
+            'path' => 'post',
             'priority' => 400,
-            'method'   => 'POST',
+            'method' => 'POST',
         ],
     ];
 
     /**
      * @dataProvider findRouteDataProvider
      */
-    public function testFindRoute($path, $expected) {
+    public function testFindRoute($path, $expected)
+    {
         $app = $this->buildAppMock();
         $router = new Router($app);
         $this->assertEquals($expected, $router->findRoute($path));
     }
 
-    public function findRouteDataProvider() {
+    public function findRouteDataProvider()
+    {
         return [
             ['non/existing/path', false],
             ['', ['name' => 'default', 'params' => []]],
             ['one-level-path', ['name' => 'one-level', 'params' => []]],
-            ['param1value', ['name' => 'one-level-param', 'params' =>['param1' => 'param1value']]],
+            ['param1value', ['name' => 'one-level-param', 'params' => ['param1' => 'param1value']]],
             ['level-one/level-two', ['name' => 'two-level', 'params' => []]],
-            ['param1value/param2value', [
-                'name' => 'two-level-param',
-                'params' => [
-                    'param1' => 'param1value',
-                    'param2' => 'param2value',
+            [
+                'param1value/param2value',
+                [
+                    'name' => 'two-level-param',
+                    'params' => [
+                        'param1' => 'param1value',
+                        'param2' => 'param2value',
+                    ]
                 ]
-            ]],
-            ['param1/value1/param2/value2/param3/value3', [
-                'name' => 'multi-level-param',
-                'params' => [
-                    'param1' => 'value1',
-                    'param2' => 'value2',
-                    'param3' => 'value3',
+            ],
+            [
+                'param1/value1/param2/value2/param3/value3',
+                [
+                    'name' => 'multi-level-param',
+                    'params' => [
+                        'param1' => 'value1',
+                        'param2' => 'value2',
+                        'param3' => 'value3',
+                    ]
                 ]
-            ]],
-            ['param1/Вінсэнт/param2/Дунін/param3/Марцінкевіч', [
-                'name' => 'multi-level-param',
-                'params' => [
-                    'param1' => 'Вінсэнт',
-                    'param2' => 'Дунін',
-                    'param3' => 'Марцінкевіч',
+            ],
+            [
+                'param1/Вінсэнт/param2/Дунін/param3/Марцінкевіч',
+                [
+                    'name' => 'multi-level-param',
+                    'params' => [
+                        'param1' => 'Вінсэнт',
+                        'param2' => 'Дунін',
+                        'param3' => 'Марцінкевіч',
+                    ]
                 ]
-            ]],
+            ],
         ];
     }
 
-    public function testFindRouteWithHTTPMethodRestriction() {
+    public function testFindRouteWithHTTPMethodRestriction()
+    {
         $app = $this->buildAppMock();
         $request = $this->getMock('\Slova\Core\Request', ['getMethod']);
         $request->method('getMethod')
@@ -112,7 +117,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
      *
      * @return App
      */
-    protected function buildAppMock() {
+    protected function buildAppMock()
+    {
         $mock = $this->getMockBuilder('\Slova\Core\App')
             ->disableOriginalConstructor()
             ->setMethods(null)

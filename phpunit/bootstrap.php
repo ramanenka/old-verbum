@@ -1,7 +1,8 @@
 <?php
 
-define('BASE_PATH', dirname(__DIR__));
+require_once 'src/Slova/Core/Autoloader.php';
+require_once 'src/Slova/Core/App.php';
 
-require_once BASE_PATH.'/src/Slova/Core/App.php';
-
-$app = new Slova\Core\App(require BASE_PATH.'/config/main.php');
+$config = require 'config/main.php';
+$config['dir']['base'] = getcwd();
+$app = new Slova\Core\App($config);

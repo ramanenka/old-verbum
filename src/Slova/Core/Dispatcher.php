@@ -2,9 +2,8 @@
 
 namespace Slova\Core;
 
-
-class Dispatcher {
-
+class Dispatcher
+{
     /**
      * Param being used during url rewrite
      */
@@ -67,17 +66,20 @@ class Dispatcher {
     /**
      * @param App $app
      */
-    public function __construct(App $app) {
+    public function __construct(App $app)
+    {
         $this->app = $app;
     }
 
     /**
      * Dispatches the request.
      */
-    public function dispatch() {
+    public function dispatch()
+    {
         try {
             $route = $this->getRouter()->findRoute(
-                $this->app->getRequest()->get(static::PATH_GET_PARAM));
+                $this->app->getRequest()->get(static::PATH_GET_PARAM)
+            );
 
             if (!$route) {
                 $this->getFrontController()->notFound();
@@ -105,4 +107,4 @@ class Dispatcher {
             $this->getFrontController()->exception($e);
         }
     }
-} 
+}
