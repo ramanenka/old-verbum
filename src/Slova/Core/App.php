@@ -41,37 +41,7 @@ class App
     public function __construct($config = array())
     {
         $this->config = $config;
-        $this->setIncludePath();
-        $this->registerAutoloader();
         $this->defineGlobalConstants();
-    }
-
-    /**
-     * Adds src directory to the include path
-     */
-    protected function setIncludePath()
-    {
-        set_include_path(
-            implode(
-                PATH_SEPARATOR,
-                array_merge(
-                    [$this->config['dir']['base'] . '/src', $this->config['dir']['base'] . '/phpunit'],
-                    explode(PATH_SEPARATOR, get_include_path())
-                )
-            )
-        );
-    }
-
-    /**
-     * Registers application autoloader
-     *
-     * @throws Exception
-     */
-    protected function registerAutoloader()
-    {
-        if (!spl_autoload_register(array(new Autoloader(), 'doIt'))) {
-            throw new Exception("Failed to register autoloader.");
-        }
     }
 
     protected function defineGlobalConstants()
