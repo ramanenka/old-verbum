@@ -1,7 +1,6 @@
 <?php
 
-require_once 'src/Slova/Core/Autoloader.php';
-require_once 'src/Slova/Core/App.php';
+require_once 'vendor/autoload.php';
 
 $config = require 'config/main.php';
 $config['dir']['base'] = getcwd();

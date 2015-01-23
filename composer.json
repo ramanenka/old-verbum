@@ -3,5 +3,8 @@
         "ruflin/elastica": "~1.3",
         "phpunit/phpunit": "~4.4",
         "squizlabs/php_codesniffer": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {"Slova\\": ["src/Slova/", "phpunit/Slova/"]}
     }
 }
