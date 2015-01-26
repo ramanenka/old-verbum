@@ -21,7 +21,7 @@ dir=/tmp/phpcs
 # get list of files to check
 if [ "$TRAVIS" == "true" ]; then
 	commit=$TRAVIS_COMMIT
-	files=$(git diff --name-only --diff-filter=ACM $commit^1..$commit^2 | grep -e 'php$')
+	files=$(git diff --name-only --diff-filter=ACM $commit^1...$commit^2 | grep -e 'php$')
 elif [ -n "$GIT_INDEX_FILE" ]; then
 	commit="" # should be empty for git pre-commit hook
 	files=$(git diff --cached --name-only --diff-filter=ACM | grep -e 'php$')
