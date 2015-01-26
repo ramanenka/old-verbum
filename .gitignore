@@ -1,4 +1,7 @@
 .idea/
+bower_components/
 node_modules/
-public/vendor/
-/vendor/
+vendor/
+public/cache/
+*.min.js
+*.min.js.map
