@@ -2,7 +2,7 @@
   "name": "slova",
   "private": true,
   "dependencies": {
-    "marionette": "~2.2.2",
-    "bootstrap": "~3.3.1"
+    "bootstrap": "~3.3.1",
+    "backbone": "~1.1.2"
   }
 }

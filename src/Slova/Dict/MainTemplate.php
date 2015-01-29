@@ -5,12 +5,13 @@ namespace Slova\Dict;
 class MainTemplate
 {
     protected $jsFiles = [
-        'vendor/jquery/dist/jquery.js',
-        'vendor/underscore/underscore.js',
-        'vendor/backbone/backbone.js',
-        'vendor/backbone.babysitter/lib/backbone.babysitter.js',
-        'vendor/backbone.wreqr/lib/backbone.wreqr.js',
-        'vendor/marionette/lib/backbone.marionette.js',
+        'cache/javascript/deps.min.js',
+        'cache/javascript/scripts.min.js',
+    ];
+
+    protected $cssFiles = [
+        'cache/css/bootstrap.min.css',
+        'cache/css/frontend.min.css',
     ];
 
     protected $template = 'templates/index.phtml';
@@ -34,6 +35,11 @@ class MainTemplate
     public function getJSFilesList()
     {
         return $this->jsFiles;
+    }
+
+    public function getCSSFilesList()
+    {
+        return $this->cssFiles;
     }
 
     public function render()
