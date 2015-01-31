@@ -42,11 +42,18 @@ class App
     {
         $this->config = $config;
         $this->defineGlobalConstants();
+        $this->registerErrorHandler();
     }
 
     protected function defineGlobalConstants()
     {
         define('DS', DIRECTORY_SEPARATOR);
+    }
+
+    protected function registerErrorHandler()
+    {
+        $errorHandler = new \Symfony\Component\Debug\ErrorHandler();
+        $errorHandler->register();
     }
 
     /**
