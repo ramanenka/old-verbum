@@ -2,14 +2,22 @@
 
 namespace Slova\Dict;
 
-use Slova\Core\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController
 {
-    public function indexAction(Response $r)
+    public function indexAction()
     {
         $template = new MainTemplate();
-        $r->setContent($template->render());
-        $r->setHeader('Content-Type', 'text/html; charset=utf-8');
+        $response = new Response($template->render());
+
+        return $response;
+    }
+
+    public function testAction($param1, $param2)
+    {
+        $response = new Response($param1 . ' - ' . $param2);
+
+        return $response;
     }
 }

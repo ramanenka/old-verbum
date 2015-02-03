@@ -2,6 +2,8 @@
 
 namespace Slova\Core;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Class App
  *
@@ -16,12 +18,12 @@ class App
      *
      * @var array
      */
-    public $config = array();
+    protected $config = array();
 
     /**
-     * @var Dispatcher
+     * @var Event\Manager
      */
-    protected $dispatcher;
+    protected $eventManager;
 
     /**
      * @var Request
@@ -29,9 +31,14 @@ class App
     protected $request;
 
     /**
-     * @var Response
+     * @var FrontController
      */
-    protected $response;
+    protected $frontController;
+
+    /**
+     * @var Di\Container
+     */
+    protected $di;
 
     /**
      * Prepares application to be executed
@@ -42,6 +49,8 @@ class App
     {
         $this->config = $config;
         $this->defineGlobalConstants();
+        $this->initDiContainer();
+        $this->initEvents();
     }
 
     protected function defineGlobalConstants()
@@ -49,25 +58,42 @@ class App
         define('DS', DIRECTORY_SEPARATOR);
     }
 
-    /**
-     * @param Dispatcher $dispatcher
-     */
-    public function setDispatcher($dispatcher)
+    protected function initDiContainer()
     {
-        $this->dispatcher = $dispatcher;
+        $this->di = new Di\Container($this);
+        $this->di->init();
+    }
+
+    protected function initEvents()
+    {
+        $events = require $this->getDir('config') . DS . 'events.php';
+        foreach ($events as $eventName => $event) {
+            foreach ($event as $observerName => $observerConfig) {
+                $this->getEventManager()->addObserver($eventName, $observerConfig);
+            }
+        }
     }
 
     /**
-     * @return Dispatcher
+     * @return Di\Container
      */
-    public function getDispatcher()
+    public function getDi()
     {
-        if (!$this->dispatcher) {
-            $this->dispatcher = new Dispatcher($this);
+        return $this->di;
+    }
+
+    /**
+     * @return Event\Manager
+     */
+    public function getEventManager()
+    {
+        if (!$this->eventManager) {
+            $this->eventManager = $this->di->get('event_manager');
         }
 
-        return $this->dispatcher;
+        return $this->eventManager;
     }
+
 
     /**
      * @param Request $request
@@ -88,23 +114,27 @@ class App
         return $this->request;
     }
 
-    /**
-     * @param Response $response
-     */
-    public function setResponse($response)
+    public function getFrontController()
     {
-        $this->response = $response;
+        if (!$this->frontController) {
+            $this->frontController = $this->di->get('front_controller');
+            $this->frontController->init();
+        }
+
+        return $this->frontController;
     }
 
     /**
-     * @return Response
+     * @param string $dirName
+     * @return string
      */
-    public function getResponse()
+    public function getDir($dirName = 'base')
     {
-        if (!$this->response) {
-            $this->response = new Response();
+        if (isset($this->config['dir'][$dirName])) {
+            return $this->config['dir'][$dirName];
         }
-        return $this->response;
+
+        return $this->config['dir']['base'] . DS . $dirName;
     }
 
     /**
@@ -112,7 +142,6 @@ class App
      */
     public function serve()
     {
-        $this->getDispatcher()->dispatch();
-        $this->getResponse()->send();
+        $this->getFrontController()->dispatch();
     }
 }

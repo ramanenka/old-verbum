@@ -1,19 +1,47 @@
 <?php
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Route;
 
-$config['routes'] = [
+$routes = [
     'default' => [
-        'handler' => ['\Slova\Dict\IndexController', 'indexAction'],
-        'path' => '',
-        'priority' => 100,
+        'path'     => '/',
+        'defaults' => [
+            '_controller' => '\Slova\Dict\IndexController::indexAction',
+        ],
     ],
     'test' => [
-        'handler' => ['\Slova\Dict\IndexController', 'testAction'],
-        'path' => 'test',
-        'priority' => 200
+        'path' => '/test/{param1}/{param2}',
+        'defaults' => [
+            '_controller' => '\Slova\Dict\IndexController::testAction',
+        ],
+        'requirements' => [
+            'param1' => 'a|b',
+            'param2' => '\d+',
+        ],
     ],
     'panel-index' => [
-        'handler' => ['\Slova\Panel\IndexController', 'indexAction'],
-        'path' => 'panel',
-        'priority' => 200
+        'path' => '/panel',
+        'defaults' => [
+            '_controller' => '\Slova\Panel\IndexController::indexAction',
+        ],
     ],
 ];
+
+$collection = new RouteCollection();
+
+foreach ($routes as $route => $config) {
+    $collection->add(
+        $route,
+        new Route(
+            $config['path'],
+            $config['defaults'],
+            isset($config['requirements']) ? $config['requirements'] : array(),
+            isset($config['options']) ? $config['options'] : array(),
+            isset($config['host']) ? $config['host'] : '',
+            isset($config['schemes']) ? $config['schemes'] : array(),
+            isset($config['methods']) ? $config['methods'] : array(),
+            isset($config['condition']) ? $config['condition'] : ''
+        )
+    );
+}
+return $collection;

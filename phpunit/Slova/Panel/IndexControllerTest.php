@@ -2,18 +2,14 @@
 
 namespace Slova\Panel;
 
-use Slova\Core\Response;
-
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testIndexActionTest()
     {
         $controller = new IndexController();
-        $response = new Response();
 
-        $controller->indexAction($response);
+        $response = $controller->indexAction();
 
         $this->assertNotEmpty($response->getContent());
-        $this->assertNotEmpty($response->getHeaders());
     }
 }

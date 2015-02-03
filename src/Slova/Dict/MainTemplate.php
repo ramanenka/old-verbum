@@ -46,7 +46,7 @@ class MainTemplate
     {
         global $app;
         ob_start();
-        require realpath($app->config['dir']['base'] . DS . $this->getTemplate());
+        require realpath($app->getDir() . DS . $this->getTemplate());
         return ob_get_clean();
     }
 }
