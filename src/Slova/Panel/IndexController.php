@@ -2,13 +2,14 @@
 
 namespace Slova\Panel;
 
-use Slova\Core\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController
 {
-    public function indexAction(Response $r)
+    public function indexAction()
     {
-        $r->setHeader('Content-Type', 'text/html; charset=utf-8');
-        $r->setContent('ololo');
+        $response = new Response('ololo');
+
+        return $response;
     }
 }
