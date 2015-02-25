@@ -14,7 +14,7 @@ class MainTemplate
         'cache/css/frontend.min.css',
     ];
 
-    protected $template = 'templates/index.phtml';
+    protected $template = 'app/templates/index.phtml';
 
     /**
      * @return mixed

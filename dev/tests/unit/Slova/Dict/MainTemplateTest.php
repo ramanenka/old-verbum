@@ -19,7 +19,7 @@ class MainTemplateTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $template = new MainTemplate();
-        $template->setTemplate('phpunit/Slova/Dict/main-template-test.phtml');
+        $template->setTemplate('dev/tests/unit/Slova/Dict/main-template-test.phtml');
 
         $this->assertEquals(
             "This is the template for MainTemplateTest\n",

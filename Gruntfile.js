@@ -28,19 +28,19 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'public/cache/javascript/scripts.min.js': [
-                        'javascript/app.js',
-                        'javascript/router.js'
+                        'app/javascript/app.js',
+                        'app/javascript/router.js'
                     ]
                 }
             }
         },
         watch: {
             js: {
-                files: 'javascript/**/*.js',
+                files: 'app/javascript/**/*.js',
                 tasks: ['uglify:src']
             },
             less: {
-                files: 'less/**/*.less',
+                files: 'app/less/**/*.less',
                 tasks: ['less']
             }
         },
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                     sourceMapFilename: 'public/cache/css/frontend.min.css.map',
                     sourceMapURL: 'frontend.min.css.map'
                 },
-                src: 'less/frontend.less',
+                src: 'app/less/frontend.less',
                 dest: 'public/cache/css/frontend.min.css'
             }
         }
