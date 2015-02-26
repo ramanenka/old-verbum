@@ -89,20 +89,9 @@ class Dispatcher
             $params = $route['params'];
             $route = $route['name'];
 
-            $n = 100;
-            while ($n > 0) {
-                try {
-                    $handler = $this->app->config['routes'][$route]['handler'];
-                    $this->getFrontController()->serve($handler, $params);
-                    return;
-                } catch (ForwardException $e) {
-                    $route = $e->getNewRouteName();
-                    $params = $e->getNewRouteParams();
-                }
-                $n--;
-            }
+            $handler = $this->app->config['routes'][$route]['handler'];
+            $this->getFrontController()->serve($handler, $params);
 
-            throw new Exception('Dispatch loop reached it\'s end.');
         } catch (Exception $e) {
             $this->getFrontController()->exception($e);
         }

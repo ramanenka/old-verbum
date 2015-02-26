@@ -79,11 +79,6 @@ class FrontController
         return $result;
     }
 
-    public function forward($routeName, $params = array())
-    {
-        throw new ForwardException($routeName, $params);
-    }
-
     public function notFound()
     {
         http_response_code(404);
