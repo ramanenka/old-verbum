@@ -51,11 +51,11 @@ class Router
             if ($matchResult === false) {
                 throw new Exception("Error when preg_match");
             } elseif ($matchResult) {
-                return ['name' => $routeName, 'params' => $this->prepareParams($names, $matches)];
+                return [$routeName, $this->prepareParams($names, $matches)];
             }
         }
 
-        return false;
+        return [false, []];
     }
 
     /**

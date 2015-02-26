@@ -77,7 +77,7 @@ class Dispatcher
     public function dispatch()
     {
         try {
-            $route = $this->getRouter()->findRoute(
+            list($route, $params) = $this->getRouter()->findRoute(
                 $this->app->getRequest()->get(static::PATH_GET_PARAM)
             );
 
@@ -86,11 +86,10 @@ class Dispatcher
                 return;
             }
 
-            $params = $route['params'];
-            $route = $route['name'];
+            $this->app->getRequest()->setParams($params);
 
             $handler = $this->app->config['routes'][$route]['handler'];
-            $this->getFrontController()->serve($handler, $params);
+            $this->getFrontController()->serve($handler);
 
         } catch (Exception $e) {
             $this->getFrontController()->exception($e);

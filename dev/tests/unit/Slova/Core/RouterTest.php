@@ -56,16 +56,16 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     public function findRouteDataProvider()
     {
         return [
-            ['non/existing/path', false],
-            ['', ['name' => 'default', 'params' => []]],
-            ['one-level-path', ['name' => 'one-level', 'params' => []]],
-            ['param1value', ['name' => 'one-level-param', 'params' => ['param1' => 'param1value']]],
-            ['level-one/level-two', ['name' => 'two-level', 'params' => []]],
+            ['non/existing/path', [false, []]],
+            ['', ['default', []]],
+            ['one-level-path', ['one-level', []]],
+            ['param1value', ['one-level-param', ['param1' => 'param1value']]],
+            ['level-one/level-two', ['two-level', []]],
             [
                 'param1value/param2value',
                 [
-                    'name' => 'two-level-param',
-                    'params' => [
+                    'two-level-param',
+                    [
                         'param1' => 'param1value',
                         'param2' => 'param2value',
                     ]
@@ -74,8 +74,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             [
                 'param1/value1/param2/value2/param3/value3',
                 [
-                    'name' => 'multi-level-param',
-                    'params' => [
+                    'multi-level-param',
+                    [
                         'param1' => 'value1',
                         'param2' => 'value2',
                         'param3' => 'value3',
@@ -85,8 +85,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             [
                 'param1/Вінсэнт/param2/Дунін/param3/Марцінкевіч',
                 [
-                    'name' => 'multi-level-param',
-                    'params' => [
+                    'multi-level-param',
+                    [
                         'param1' => 'Вінсэнт',
                         'param2' => 'Дунін',
                         'param3' => 'Марцінкевіч',
@@ -107,7 +107,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $router = new Router($app);
 
         $this->assertEquals(
-            ['name' => 'restricted-by-http-method', 'params' => []],
+            ['restricted-by-http-method', []],
             $router->findRoute('post')
         );
     }

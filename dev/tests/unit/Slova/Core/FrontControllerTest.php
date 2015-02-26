@@ -33,7 +33,9 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         $fc = new FrontController($this->app);
-        $fc->serve($handler, $params);
+        $this->app->getRequest()->setParams($params);
+
+        $fc->serve($handler);
         $response = $this->app->getResponse();
 
         if (!$expectException) {

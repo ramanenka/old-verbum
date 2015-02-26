@@ -18,4 +18,17 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $this->assertEquals('GET', $request->getMethod());
     }
+
+    public function testParamsGetterSetter()
+    {
+        $params = [
+            'key1' => 'value1',
+        ];
+
+        $request = new Request();
+        $this->assertEmpty($request->getParams());
+
+        $this->assertSame($request, $request->setParams($params));
+        $this->assertEquals($params, $request->getParams());
+    }
 }

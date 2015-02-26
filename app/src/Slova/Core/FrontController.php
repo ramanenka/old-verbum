@@ -14,9 +14,9 @@ class FrontController
         $this->app = $app;
     }
 
-    public function serve($handler, $params)
+    public function serve($handler)
     {
-        $actionResult = $this->callHandler($handler, $params);
+        $actionResult = $this->callHandler($handler);
         $this->processActionResult($actionResult);
     }
 
@@ -34,11 +34,11 @@ class FrontController
             ->setHeader('Content-Type', 'application/json');
     }
 
-    protected function callHandler($handler, $params)
+    protected function callHandler($handler)
     {
         list ($class, $action) = $handler;
         $controller = $this->instantiateController($class);
-        $arguments = $this->prepareActionArguments($controller, $action, $params);
+        $arguments = $this->prepareActionArguments($controller, $action);
         return call_user_func_array([$controller, $action], $arguments);
     }
 
@@ -47,8 +47,10 @@ class FrontController
         return new $class();
     }
 
-    protected function prepareActionArguments($controller, $action, $params)
+    protected function prepareActionArguments($controller, $action)
     {
+        $params = $this->app->getRequest()->getParams();
+
         $result = [];
         $objects = [$this->app, $this->app->getRequest(), $this->app->getResponse(), $this];
 
