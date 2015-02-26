@@ -15,5 +15,5 @@ before_script:
   - source profile
 
 script:
-  - code-style/phpcs-check
-  - phpunit
+  - dev/code-style/phpcs-check
+  - cd dev/tests/unit && phpunit
