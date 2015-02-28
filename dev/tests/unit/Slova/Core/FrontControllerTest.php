@@ -89,6 +89,13 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
                 ['Content-Type' => 'application/json'],
                 false
             ],
+            [
+                ['\Slova\Core\FrontControllerTestTestController', 'objectFromParamsWithTypeHintAction'],
+                ['exception' => new \Exception()],
+                json_encode(['Exception']),
+                ['Content-Type' => 'application/json'],
+                false
+            ],
         ];
     }
 }

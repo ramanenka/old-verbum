@@ -58,14 +58,17 @@ class FrontController
         foreach ($method->getParameters() as $param) {
             $object = false;
             if ($param->getClass()) {
-                $object = array_values(
+                $objectsMatched = array_values(
                     array_filter(
                         $objects,
                         function ($object) use ($param) {
                             return is_a($object, $param->getClass()->getName());
                         }
                     )
-                )[0];
+                );
+                if ($objectsMatched) {
+                    $object = reset($objectsMatched);
+                }
             }
             if ($object) {
                 $result[] = $object;

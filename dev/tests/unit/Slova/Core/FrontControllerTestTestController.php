@@ -36,4 +36,9 @@ class FrontControllerTestTestController
     {
         return [is_a($request, 'Slova\Core\Request'), $param1, $param2];
     }
+
+    public function objectFromParamsWithTypeHintAction(\Exception $exception)
+    {
+        return [get_class($exception)];
+    }
 }
