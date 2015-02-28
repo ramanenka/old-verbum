@@ -91,7 +91,7 @@ class Dispatcher
             $handler = $this->app->config['routes'][$route]['handler'];
             $this->getFrontController()->serve($handler);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->getFrontController()->exception($e);
         }
     }

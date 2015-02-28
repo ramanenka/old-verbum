@@ -9,6 +9,13 @@ class FrontController
      */
     protected $app;
 
+    /**
+     * Class name of the default controller
+     *
+     * @var string
+     */
+    protected $defaultControllerClass = 'Slova\Core\DefaultController';
+
     public function __construct(App $app)
     {
         $this->app = $app;
@@ -86,12 +93,12 @@ class FrontController
 
     public function notFound()
     {
-        http_response_code(404);
+        $this->callHandler([$this->defaultControllerClass, 'notFoundAction']);
     }
 
-    public function exception(Exception $e)
+    public function exception(\Exception $e)
     {
-        http_response_code(500);
-        echo $e->getMessage();
+        $this->app->getRequest()->setParam('exception', $e);
+        $this->callHandler([$this->defaultControllerClass, 'exceptionAction']);
     }
 }

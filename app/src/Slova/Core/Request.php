@@ -39,6 +39,31 @@ class Request
     }
 
     /**
+     * Setts value of the specified param
+     *
+     * @param $name
+     * @param $value
+     * @return $this
+     */
+    public function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Returns the param value
+     *
+     * @param $name
+     * @param mixed|null $default
+     * @return mixed|null
+     */
+    public function getParam($name, $default = null)
+    {
+        return isset($this->params[$name]) ? $this->params[$name] : $default;
+    }
+
+    /**
      * Return request method
      *
      * @return string|null
