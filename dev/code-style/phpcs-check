@@ -12,7 +12,7 @@ runCheck() {
 
 # skip if travis build check
 if [ "$TRAVIS" == "true" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-	dir="src/ phpunit/"
+	dir="app/src/ dev/tests/unit/"
 	runCheck
 fi
 
