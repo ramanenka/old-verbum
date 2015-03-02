@@ -9,14 +9,21 @@ class FrontController
      */
     protected $app;
 
+    /**
+     * Class name of the default controller
+     *
+     * @var string
+     */
+    protected $defaultControllerClass = 'Slova\Core\DefaultController';
+
     public function __construct(App $app)
     {
         $this->app = $app;
     }
 
-    public function serve($handler, $params)
+    public function serve($handler)
     {
-        $actionResult = $this->callHandler($handler, $params);
+        $actionResult = $this->callHandler($handler);
         $this->processActionResult($actionResult);
     }
 
@@ -34,11 +41,11 @@ class FrontController
             ->setHeader('Content-Type', 'application/json');
     }
 
-    protected function callHandler($handler, $params)
+    protected function callHandler($handler)
     {
         list ($class, $action) = $handler;
         $controller = $this->instantiateController($class);
-        $arguments = $this->prepareActionArguments($controller, $action, $params);
+        $arguments = $this->prepareActionArguments($controller, $action);
         return call_user_func_array([$controller, $action], $arguments);
     }
 
@@ -47,8 +54,10 @@ class FrontController
         return new $class();
     }
 
-    protected function prepareActionArguments($controller, $action, $params)
+    protected function prepareActionArguments($controller, $action)
     {
+        $params = $this->app->getRequest()->getParams();
+
         $result = [];
         $objects = [$this->app, $this->app->getRequest(), $this->app->getResponse(), $this];
 
@@ -56,14 +65,17 @@ class FrontController
         foreach ($method->getParameters() as $param) {
             $object = false;
             if ($param->getClass()) {
-                $object = array_values(
+                $objectsMatched = array_values(
                     array_filter(
                         $objects,
                         function ($object) use ($param) {
                             return is_a($object, $param->getClass()->getName());
                         }
                     )
-                )[0];
+                );
+                if ($objectsMatched) {
+                    $object = reset($objectsMatched);
+                }
             }
             if ($object) {
                 $result[] = $object;
@@ -79,19 +91,14 @@ class FrontController
         return $result;
     }
 
-    public function forward($routeName, $params = array())
-    {
-        throw new ForwardException($routeName, $params);
-    }
-
     public function notFound()
     {
-        http_response_code(404);
+        $this->callHandler([$this->defaultControllerClass, 'notFoundAction']);
     }
 
-    public function exception(Exception $e)
+    public function exception(\Exception $e)
     {
-        http_response_code(500);
-        echo $e->getMessage();
+        $this->app->getRequest()->setParam('exception', $e);
+        $this->callHandler([$this->defaultControllerClass, 'exceptionAction']);
     }
 }

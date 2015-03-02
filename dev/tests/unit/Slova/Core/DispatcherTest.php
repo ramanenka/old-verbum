@@ -28,7 +28,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testNormalDispatchCase()
     {
-        $routerMock = $this->prepareRouterMock(['name' => 'normal', 'params' => [1, 2, 3]]);
+        $routerMock = $this->prepareRouterMock(['normal', [1, 2, 3]]);
 
         $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
             ->setConstructorArgs([$this->app])
@@ -37,12 +37,14 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
         $fcMock->expects($this->once())
             ->method('serve')
-            ->with($this->equalTo(['HandlerClass', 'handlerAction']), $this->equalTo([1, 2, 3]));
+            ->with($this->equalTo(['HandlerClass', 'handlerAction']));
 
         $dispatcher = new Dispatcher($this->app);
         $dispatcher->setRouter($routerMock);
         $dispatcher->setFrontController($fcMock);
         $dispatcher->dispatch();
+
+        $this->assertEquals([1, 2, 3], $this->app->getRequest()->getParams());
     }
 
     public function testNoRouteCase()
@@ -88,33 +90,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
         $dispatcher->dispatch();
     }
 
-    public function testDispatchLoopEnds()
-    {
-        $routerMock = $this->prepareRouterMock(['name' => 'normal', 'params' => [1, 2, 3]]);
-
-        $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
-            ->setConstructorArgs([$this->app])
-            ->setMethods(['serve', 'exception'])
-            ->getMock();
-
-        $e = new ForwardException('normal', []);
-
-        $fcMock->expects($this->any())
-            ->method('serve')
-            ->willThrowException($e);
-
-        $fcMock->expects($this->any())
-            ->method('exception')
-            ->with($this->callback(function($e) {
-                return is_a($e, '\Slova\Core\Exception');
-            }));
-
-        $dispatcher = new Dispatcher($this->app);
-        $dispatcher->setRouter($routerMock);
-        $dispatcher->setFrontController($fcMock);
-        $dispatcher->dispatch();
-    }
-
     /**
      * @param $returnValue
      * @return \PHPUnit_Framework_MockObject_MockObject
@@ -128,7 +103,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
         $routerMock->expects($this->any())
             ->method('findRoute')
-            ->will($this->returnValue($returnValue));
+            ->willReturn($returnValue);
         return $routerMock;
     }
 }

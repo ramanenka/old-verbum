@@ -33,7 +33,9 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         $fc = new FrontController($this->app);
-        $fc->serve($handler, $params);
+        $this->app->getRequest()->setParams($params);
+
+        $fc->serve($handler);
         $response = $this->app->getResponse();
 
         if (!$expectException) {
@@ -87,6 +89,44 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
                 ['Content-Type' => 'application/json'],
                 false
             ],
+            [
+                ['\Slova\Core\FrontControllerTestTestController', 'objectFromParamsWithTypeHintAction'],
+                ['exception' => new \Exception()],
+                json_encode(['Exception']),
+                ['Content-Type' => 'application/json'],
+                false
+            ],
         ];
+    }
+
+    public function testNotFound()
+    {
+        $controller = $this->getMockBuilder('Slova\Core\FrontController')
+            ->setMethods(['callHandler'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $controller->expects($this->once())
+            ->method('callHandler')
+            ->with($this->isType('array'));
+
+        $controller->notFound();
+    }
+
+    public function testException()
+    {
+        $controller = $this->getMockBuilder('Slova\Core\FrontController')
+            ->setMethods(['callHandler'])
+            ->setConstructorArgs([$this->app])
+            ->getMock();
+
+        $controller->expects($this->once())
+            ->method('callHandler')
+            ->with($this->isType('array'));
+
+        $e = new Exception();
+        $controller->exception($e);
+
+        $this->assertSame($e, $this->app->getRequest()->getParam('exception'));
     }
 }
