@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class DispatcherTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** @var App app */
-        $this->app = $this->getMockBuilder('\Slova\Core\App')
+        $this->app = $this->getMockBuilder('\Verbum\Core\App')
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -30,7 +30,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $routerMock = $this->prepareRouterMock(['normal', [1, 2, 3]]);
 
-        $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
+        $fcMock = $this->getMockBuilder('\Verbum\Core\FrontController')
             ->setConstructorArgs([$this->app])
             ->setMethods(['serve'])
             ->getMock();
@@ -51,7 +51,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $routerMock = $this->prepareRouterMock(false);
 
-        $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
+        $fcMock = $this->getMockBuilder('\Verbum\Core\FrontController')
             ->disableOriginalConstructor()
             ->setMethods(['notFound'])
             ->getMock();
@@ -71,7 +71,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
         $routerMock = $this->prepareRouterMock(false);
         $e = new Exception('Test exception');
 
-        $fcMock = $this->getMockBuilder('\Slova\Core\FrontController')
+        $fcMock = $this->getMockBuilder('\Verbum\Core\FrontController')
             ->disableOriginalConstructor()
             ->setMethods(['notFound', 'exception'])
             ->getMock();
@@ -96,7 +96,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
      */
     protected function prepareRouterMock($returnValue)
     {
-        $routerMock = $this->getMockBuilder('\Slova\Core\Router')
+        $routerMock = $this->getMockBuilder('\Verbum\Core\Router')
             ->disableOriginalConstructor()
             ->setMethods(['findRoute'])
             ->getMock();

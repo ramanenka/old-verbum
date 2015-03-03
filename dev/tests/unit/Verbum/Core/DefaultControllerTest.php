@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 {

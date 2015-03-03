@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Dict;
+namespace Verbum\Dict;
 
 class MainTemplateTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class MainTemplateTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $template = new MainTemplate();
-        $template->setTemplate('dev/tests/unit/Slova/Dict/main-template-test.phtml');
+        $template->setTemplate('dev/tests/unit/Verbum/Dict/main-template-test.phtml');
 
         $this->assertEquals(
             "This is the template for MainTemplateTest\n",

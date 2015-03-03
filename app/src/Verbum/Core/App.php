@@ -1,13 +1,13 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 /**
  * Class App
  *
  * Main application class
  *
- * @package Slova\Core
+ * @package Verbum\Core
  */
 class App
 {

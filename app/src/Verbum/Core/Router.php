@@ -1,13 +1,13 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 /**
  * Class Router
  *
  * Looks for routes based on url path.
  *
- * @package Slova\Core
+ * @package Verbum\Core
  */
 class Router
 {

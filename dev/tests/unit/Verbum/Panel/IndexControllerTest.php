@@ -1,8 +1,8 @@
 <?php
 
-namespace Slova\Panel;
+namespace Verbum\Panel;
 
-use Slova\Core\Response;
+use Verbum\Core\Response;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {

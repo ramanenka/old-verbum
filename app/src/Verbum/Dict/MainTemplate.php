@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Dict;
+namespace Verbum\Dict;
 
 class MainTemplate
 {

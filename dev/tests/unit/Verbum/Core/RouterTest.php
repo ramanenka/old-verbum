@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
@@ -99,7 +99,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     public function testFindRouteWithHTTPMethodRestriction()
     {
         $app = $this->buildAppMock();
-        $request = $this->getMock('\Slova\Core\Request', ['getMethod']);
+        $request = $this->getMock('\Verbum\Core\Request', ['getMethod']);
         $request->method('getMethod')
             ->willReturn('POST');
         $app->setRequest($request);
@@ -119,7 +119,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      */
     protected function buildAppMock()
     {
-        $mock = $this->getMockBuilder('\Slova\Core\App')
+        $mock = $this->getMockBuilder('\Verbum\Core\App')
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
