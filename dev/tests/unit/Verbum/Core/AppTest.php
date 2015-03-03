@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class AppTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,12 +13,12 @@ class AppTest extends \PHPUnit_Framework_TestCase
     public function testServe()
     {
         /** @var App $app */
-        $app = $this->getMockBuilder('Slova\Core\App')
+        $app = $this->getMockBuilder('Verbum\Core\App')
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcherMock = $this->getMockBuilder('\Slova\Core\Dispatcher')
+        $dispatcherMock = $this->getMockBuilder('\Verbum\Core\Dispatcher')
             ->disableOriginalConstructor()
             ->getMock();
         $dispatcherMock->expects($this->once())
@@ -26,7 +26,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
             ->with();
         $app->setDispatcher($dispatcherMock);
 
-        $responseMock = $this->getMockBuilder('\Slova\Core\Response')
+        $responseMock = $this->getMockBuilder('\Verbum\Core\Response')
             ->disableOriginalConstructor()
             ->getMock();
         $responseMock->expects($this->once())

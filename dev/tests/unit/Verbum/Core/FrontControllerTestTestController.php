@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class FrontControllerTestTestController
 {
@@ -27,14 +27,14 @@ class FrontControllerTestTestController
     public function objectParamsAction(App $app, Request $request, Response $response, FrontController $controller)
     {
         return [
-            is_a($app, 'Slova\Core\App') && is_a($request, 'Slova\Core\Request')
-            && is_a($response, 'Slova\Core\Response') && is_a($controller, 'Slova\Core\FrontController')
+            is_a($app, 'Verbum\Core\App') && is_a($request, 'Verbum\Core\Request')
+            && is_a($response, 'Verbum\Core\Response') && is_a($controller, 'Verbum\Core\FrontController')
         ];
     }
 
     public function objectParamsUrlParamsAction(Request $request, $param1, $param2 = 10)
     {
-        return [is_a($request, 'Slova\Core\Request'), $param1, $param2];
+        return [is_a($request, 'Verbum\Core\Request'), $param1, $param2];
     }
 
     public function objectFromParamsWithTypeHintAction(\Exception $exception)

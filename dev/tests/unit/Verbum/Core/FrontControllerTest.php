@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class FrontControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** @var App app */
-        $this->app = $this->getMockBuilder('\Slova\Core\App')
+        $this->app = $this->getMockBuilder('\Verbum\Core\App')
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -29,7 +29,7 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
         $expectException
     ) {
         if ($expectException) {
-            $this->setExpectedException('\Slova\Core\Exception');
+            $this->setExpectedException('\Verbum\Core\Exception');
         }
 
         $fc = new FrontController($this->app);
@@ -48,49 +48,49 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'noParamsAction'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'noParamsAction'],
                 [],
                 json_encode(['result']),
                 ['Content-Type' => 'application/json'],
                 false
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'urlParamsAction'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'urlParamsAction'],
                 ['param1' => 'value1', 'param2' => 'value2'],
                 json_encode(['value1', 'value2']),
                 ['Content-Type' => 'application/json'],
                 false
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'urlParamsActionWithDefault'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'urlParamsActionWithDefault'],
                 ['param1' => 'value1'],
                 json_encode(['value1', 'value2']),
                 ['Content-Type' => 'application/json'],
                 false
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'urlParamsActionNoRequired'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'urlParamsActionNoRequired'],
                 ['param1' => 'value1'],
                 json_encode(['value1', 'value2']),
                 ['Content-Type' => 'application/json'],
                 true
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'objectParamsAction'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'objectParamsAction'],
                 ['param1' => 'value1'],
                 json_encode([true]),
                 ['Content-Type' => 'application/json'],
                 false
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'objectParamsUrlParamsAction'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'objectParamsUrlParamsAction'],
                 ['param1' => 'value1'],
                 json_encode([true, 'value1', 10]),
                 ['Content-Type' => 'application/json'],
                 false
             ],
             [
-                ['\Slova\Core\FrontControllerTestTestController', 'objectFromParamsWithTypeHintAction'],
+                ['\Verbum\Core\FrontControllerTestTestController', 'objectFromParamsWithTypeHintAction'],
                 ['exception' => new \Exception()],
                 json_encode(['Exception']),
                 ['Content-Type' => 'application/json'],
@@ -101,7 +101,7 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFound()
     {
-        $controller = $this->getMockBuilder('Slova\Core\FrontController')
+        $controller = $this->getMockBuilder('Verbum\Core\FrontController')
             ->setMethods(['callHandler'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -115,7 +115,7 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testException()
     {
-        $controller = $this->getMockBuilder('Slova\Core\FrontController')
+        $controller = $this->getMockBuilder('Verbum\Core\FrontController')
             ->setMethods(['callHandler'])
             ->setConstructorArgs([$this->app])
             ->getMock();

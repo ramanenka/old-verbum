@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {

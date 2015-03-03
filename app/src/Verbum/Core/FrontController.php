@@ -1,6 +1,6 @@
 <?php
 
-namespace Slova\Core;
+namespace Verbum\Core;
 
 class FrontController
 {
@@ -14,7 +14,7 @@ class FrontController
      *
      * @var string
      */
-    protected $defaultControllerClass = 'Slova\Core\DefaultController';
+    protected $defaultControllerClass = 'Verbum\Core\DefaultController';
 
     public function __construct(App $app)
     {
