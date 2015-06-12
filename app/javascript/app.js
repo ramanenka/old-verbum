@@ -2,10 +2,6 @@ var AppClass = function () {
 
 };
 
-AppClass.prototype = _.extend(AppClass.prototype, Backbone.Events, {
-    start: function () {
-        this.trigger('app:start');
-    }
-});
+AppClass.prototype.start = function() {};
 
 var App = new AppClass();

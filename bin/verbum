@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+chdir('../');
+
+require 'vendor/autoload.php';
+
+$config = require 'app/config/main.php';
+$config['dir']['base'] = getcwd();
+$app = new Verbum\Core\App($config);
+
+$verbum = new Verbum\Console\Verbum();
+$verbum->run();

@@ -11,44 +11,36 @@
     <?php endforeach; ?>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding:5px;">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Слоўнік</a>
-            </div>
 
-            <form class="navbar-form" role="search">
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="Text text..." style="width:100%">
-                </div>
-                <button type="submit" class="btn btn-default ">Пошук</button>
+    <div class="content">
+        <div class="search-form-container">
+            <form id="search-form" autocomplete="off" onsubmit="return false;">
+                <input id="q" type="text" name="q" value="sdfsd" autofocus="autofocus" />
             </form>
         </div>
-    </nav>
 
-    <div class="container">
-        <div class="starter-template" style="text-align: center;">
-            <h1>Мадэрновы Слоўнік Беларускай Мовы</h1>
-            <blockquote class="blockquote-reverse">
-            <p class="lead">Мова...<br/>
-                Родная мова<br/>
-                У марах, у песнях, у снах.<br/>
-                Мае ў ёй кожнае слова<br/>
-                Свой колер, і смак, і пах.<br/>
-                Зліваюцца гукі ў словы<br/>
-                I ў рэчышча роднай мовы,<br/>
-                Як рэкі ў мора, цякуць,<br/>
-                I думкі мае плывуць<br/>
-                На хвалях і дзён, і начэй<br/>
-                Да сэрцаў людскіх і вачэй.</p>
-                <footer>Анатоль Грачанікаў, <cite title="Source Title">Мова...</cite></footer>
-            </blockquote>
+        <div class="results">
+            <div class="article">
+                <p class="title">
+                    Пананосіць (пананошваць)
+                </p>
+                <p>дзеяслоў | закончанае трыванне</p>
+                <p>1. чаго. Прынесці за некалькі прыёмаў многа чаго-н. П. дроў да печы. 2. чаго. Сваім рухам нанесці многа чаго-н., утварыць што-н. Вецер пананосіў лісця ў сенцы. З. што і чаго. Нанесці на паперу, карту, схему ўсё, многае. П. населеныя пункты на карту.</p>
+                <p>Крыніца: <a target="_blank" href="http://rv-blr.com/slounik.jsp?letterId=0&maskId=0&pageId=2130">rv-blr.com</a></p>
+            </div>
+            <div class="article">
+                <p class="title">
+                    Пананосіць (пананошваць)
+                </p>
+                <p>дзеяслоў | закончанае трыванне</p>
+                <p>1. чаго. Прынесці за некалькі прыёмаў многа чаго-н. П. дроў да печы. 2. чаго. Сваім рухам нанесці многа чаго-н., утварыць што-н. Вецер пананосіў лісця ў сенцы. З. што і чаго. Нанесці на паперу, карту, схему ўсё, многае. П. населеныя пункты на карту.</p>
+                <p>Крыніца: <a target="_blank" href="http://rv-blr.com/slounik.jsp?letterId=0&maskId=0&pageId=2130">rv-blr.com</a></p>
+            </div>
         </div>
-
     </div>
 
-    <script type="text/template" id="search-panel-template">
-        <input type="text" name="q" value=""> <button>Search</button>
+    <script type="text/x-handlebars-template" id="hbt">
+        ololo <div>ol123</div> lolol
     </script>
 
     <?php foreach ($this->getJSFilesList() as $file) : ?>
