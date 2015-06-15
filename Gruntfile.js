@@ -7,7 +7,11 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 sourceMap: true,
-                sourceMapIncludeSources: true
+                sourceMapIncludeSources: true,
+                compress: {
+                    drop_debugger: false
+                },
+                mangle: false
             },
             src: {
                 options: {
@@ -15,7 +19,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'public/cache/javascript/scripts.min.js': [
-                        'app/javascript/app.js'
+                        'app/javascript/*.js'
                     ]
                 }
             }

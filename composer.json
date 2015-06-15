@@ -7,5 +7,8 @@
     },
     "autoload": {
         "psr-4": {"Verbum\\": ["app/src/Verbum/", "dev/tests/unit/Verbum/"]}
+    },
+    "scripts": {
+        "tests": "cd dev/tests/unit && phpunit --coverage-text -"
     }
 }

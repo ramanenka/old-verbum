@@ -11,6 +11,9 @@
         <testsuite name="core">
             <directory>Verbum/Core</directory>
         </testsuite>
+        <testsuite name="console">
+            <directory>Verbum/Console</directory>
+        </testsuite>
         <testsuite name="dict">
             <directory>Verbum/Dict</directory>
         </testsuite>
@@ -18,4 +21,9 @@
             <directory>Verbum/Panel</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../../../app/src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

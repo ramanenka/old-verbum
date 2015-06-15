@@ -2,6 +2,9 @@
 
 namespace Verbum\Core;
 
+use Elastica\Client;
+use Verbum\Core\DI\Container;
+
 /**
  * Class App
  *
@@ -34,6 +37,16 @@ class App
     protected $response;
 
     /**
+     * @var
+     */
+    protected $container;
+
+    /**
+     * @var Client
+     */
+    protected $elastic;
+
+    /**
      * Prepares application to be executed
      *
      * @param array $config
@@ -42,11 +55,58 @@ class App
     {
         $this->config = $config;
         $this->defineGlobalConstants();
+        $this->initDIContainer();
     }
 
     protected function defineGlobalConstants()
     {
         define('DS', DIRECTORY_SEPARATOR);
+    }
+
+    protected function initDIContainer()
+    {
+        $container = $this->getContainer();
+        $container->set('app', $this);
+        $container->set('container', $container);
+        $container->set('elastic', $this->getElastic());
+    }
+
+    /**
+     * @return Container
+     */
+    public function getContainer()
+    {
+        if (!$this->container) {
+            $this->container = new Container();
+        }
+        return $this->container;
+    }
+
+    /**
+     * @param Container $container
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getElastic()
+    {
+        if (!$this->elastic) {
+            $this->elastic = new Client($this->config['elastic']['connection']);
+        }
+        return $this->elastic;
+    }
+
+    /**
+     * @param Client $elastic
+     */
+    public function setElastic($elastic)
+    {
+        $this->elastic = $elastic;
     }
 
     /**

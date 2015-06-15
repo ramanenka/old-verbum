@@ -14,33 +14,34 @@
 
     <div class="content">
         <div class="search-form-container">
-            <form id="search-form" autocomplete="off" onsubmit="return false;">
-                <input id="q" type="text" name="q" value="sdfsd" autofocus="autofocus" />
+            <form id="search-form" autocomplete="off">
+                <input id="q" type="text" name="q" value="" autofocus="autofocus" />
+                <div id="typeahead" style="display: none;"></div>
             </form>
         </div>
 
-        <div class="results">
-            <div class="article">
-                <p class="title">
-                    Пананосіць (пананошваць)
-                </p>
-                <p>дзеяслоў | закончанае трыванне</p>
-                <p>1. чаго. Прынесці за некалькі прыёмаў многа чаго-н. П. дроў да печы. 2. чаго. Сваім рухам нанесці многа чаго-н., утварыць што-н. Вецер пананосіў лісця ў сенцы. З. што і чаго. Нанесці на паперу, карту, схему ўсё, многае. П. населеныя пункты на карту.</p>
-                <p>Крыніца: <a target="_blank" href="http://rv-blr.com/slounik.jsp?letterId=0&maskId=0&pageId=2130">rv-blr.com</a></p>
-            </div>
-            <div class="article">
-                <p class="title">
-                    Пананосіць (пананошваць)
-                </p>
-                <p>дзеяслоў | закончанае трыванне</p>
-                <p>1. чаго. Прынесці за некалькі прыёмаў многа чаго-н. П. дроў да печы. 2. чаго. Сваім рухам нанесці многа чаго-н., утварыць што-н. Вецер пананосіў лісця ў сенцы. З. што і чаго. Нанесці на паперу, карту, схему ўсё, многае. П. населеныя пункты на карту.</p>
-                <p>Крыніца: <a target="_blank" href="http://rv-blr.com/slounik.jsp?letterId=0&maskId=0&pageId=2130">rv-blr.com</a></p>
-            </div>
+        <div id="results" class="results">
+
         </div>
     </div>
 
-    <script type="text/x-handlebars-template" id="hbt">
-        ololo <div>ol123</div> lolol
+    <script id="template-typeahead" type="text/html">
+        <ul>
+            {{each suggestions}}
+            <li data-value="{{=title}}">{{=title}}</li>
+            {{done}}
+        </ul>
+    </script>
+
+    <script id="template-results" type="text/html">
+        {{each articles}}
+            <div class="article">
+                <p class="title">{{= title}}</p>
+                <p data-type="meta">{{= meta}}</p>
+                <p>{{= definition}}</p>
+                <p><a target="_blank" href="{{= source}}">rv-blr.com</a></p>
+            </div>
+        {{done}}
     </script>
 
     <?php foreach ($this->getJSFilesList() as $file) : ?>

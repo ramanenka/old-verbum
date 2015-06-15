@@ -9,5 +9,5 @@ $config = require 'app/config/main.php';
 $config['dir']['base'] = getcwd();
 $app = new Verbum\Core\App($config);
 
-$verbum = new Verbum\Console\Verbum();
+$verbum = $app->getContainer()->get('Verbum\Console\Verbum');
 $verbum->run();
