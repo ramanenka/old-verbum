@@ -16,4 +16,4 @@ before_script:
 
 script:
   - dev/code-style/phpcs-check
-  - cd dev/tests/unit && phpunit
+  - cd dev/tests/unit && phpunit --coverage-text -

@@ -7,20 +7,11 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 sourceMap: true,
-                sourceMapIncludeSources: true
-            },
-            deps: {
-                options: {
-                    sourceMapName: 'public/cache/javascript/deps.min.js.map'
+                sourceMapIncludeSources: true,
+                compress: {
+                    drop_debugger: false
                 },
-                files: {
-                    'public/cache/javascript/deps.min.js': [
-                        'bower_components/underscore/underscore.js',
-                        'bower_components/jquery/dist/jquery.js',
-                        'bower_components/backbone/backbone.js',
-                        'bower_components/bootstrap/dist/js/bootstrap.js'
-                    ]
-                }
+                mangle: false
             },
             src: {
                 options: {
@@ -28,8 +19,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'public/cache/javascript/scripts.min.js': [
-                        'app/javascript/app.js',
-                        'app/javascript/router.js'
+                        'app/javascript/*.js'
                     ]
                 }
             }
@@ -44,21 +34,8 @@ module.exports = function(grunt) {
                 tasks: ['less']
             }
         },
-        symlink: {
-            options: {
-                overwrite: false
-            },
-            bootstrapFonts: {
-                src: 'bower_components/bootstrap/dist/fonts',
-                dest: 'public/cache/fonts'
-            },
-            bootstrapCSS: {
-                src: 'bower_components/bootstrap/dist/css/bootstrap.min.css',
-                dest: 'public/cache/css/bootstrap.min.css'
-            }
-        },
         less: {
-            compileFrontend: {
+            frontend: {
                 options: {
                     strictMath: true,
                     strictImports: true,
@@ -77,7 +54,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-symlink');
     grunt.loadNpmTasks('grunt-contrib-less');
 
 };

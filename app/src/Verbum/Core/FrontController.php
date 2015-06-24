@@ -51,7 +51,7 @@ class FrontController
 
     protected function instantiateController($class)
     {
-        return new $class();
+        return $this->app->getContainer()->get($class);
     }
 
     protected function prepareActionArguments($controller, $action)

@@ -5,12 +5,10 @@ namespace Verbum\Dict;
 class MainTemplate
 {
     protected $jsFiles = [
-        'cache/javascript/deps.min.js',
         'cache/javascript/scripts.min.js',
     ];
 
     protected $cssFiles = [
-        'cache/css/bootstrap.min.css',
         'cache/css/frontend.min.css',
     ];
 

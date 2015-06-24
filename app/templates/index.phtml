@@ -11,44 +11,37 @@
     <?php endforeach; ?>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding:5px;">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Слоўнік</a>
-            </div>
 
-            <form class="navbar-form" role="search">
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="Text text..." style="width:100%">
-                </div>
-                <button type="submit" class="btn btn-default ">Пошук</button>
+    <div class="content">
+        <div class="search-form-container">
+            <form id="search-form" autocomplete="off">
+                <input id="q" type="text" name="q" value="" autofocus="autofocus" />
+                <div id="typeahead" style="display: none;"></div>
             </form>
         </div>
-    </nav>
 
-    <div class="container">
-        <div class="starter-template" style="text-align: center;">
-            <h1>Мадэрновы Слоўнік Беларускай Мовы</h1>
-            <blockquote class="blockquote-reverse">
-            <p class="lead">Мова...<br/>
-                Родная мова<br/>
-                У марах, у песнях, у снах.<br/>
-                Мае ў ёй кожнае слова<br/>
-                Свой колер, і смак, і пах.<br/>
-                Зліваюцца гукі ў словы<br/>
-                I ў рэчышча роднай мовы,<br/>
-                Як рэкі ў мора, цякуць,<br/>
-                I думкі мае плывуць<br/>
-                На хвалях і дзён, і начэй<br/>
-                Да сэрцаў людскіх і вачэй.</p>
-                <footer>Анатоль Грачанікаў, <cite title="Source Title">Мова...</cite></footer>
-            </blockquote>
+        <div id="results" class="results">
+
         </div>
-
     </div>
 
-    <script type="text/template" id="search-panel-template">
-        <input type="text" name="q" value=""> <button>Search</button>
+    <script id="template-typeahead" type="text/html">
+        <ul>
+            {{each suggestions}}
+            <li data-value="{{=title}}">{{=title}}</li>
+            {{done}}
+        </ul>
+    </script>
+
+    <script id="template-results" type="text/html">
+        {{each articles}}
+            <div class="article">
+                <p class="title">{{= title}}</p>
+                <p data-type="meta">{{= meta}}</p>
+                <p>{{= definition}}</p>
+                <p><a target="_blank" href="{{= source}}">rv-blr.com</a></p>
+            </div>
+        {{done}}
     </script>
 
     <?php foreach ($this->getJSFilesList() as $file) : ?>
