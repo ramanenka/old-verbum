@@ -5,15 +5,27 @@ namespace Verbum\Dict;
 class MainTemplateTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testGetJSFilesList()
+    public function staticsTypeList()
+    {
+        return [['getJSFilesList'], ['getCSSFilesList']];
+    }
+
+    /**
+     * @dataProvider staticsTypeList
+     */
+    public function testStaticsFilesList($type)
     {
         $template = new MainTemplate();
 
         $this->assertInternalType(
             'array',
-            $template->getJSFilesList(),
-            'getJSFilesList() must return an array of strings'
+            $template->$type(),
+            "$type() must return an array of strings"
         );
+
+        $this->assertTrue(array_reduce($template->$type(), function($carry, $item) {
+            return $carry && strpos($item, 'v=') > 0;
+        }, true), 'All statics should be boost-able.');
     }
 
     public function testRender()
