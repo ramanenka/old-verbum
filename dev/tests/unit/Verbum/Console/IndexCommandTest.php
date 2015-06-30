@@ -72,7 +72,7 @@ class IndexCommandTest extends \PHPUnit_Framework_TestCase
                 [   // send first portion of documents to elastic
                     $this->stringContains('bulk'),
                     $this->equalTo('PUT'),
-                    $this->callback(function($data) {
+                    $this->callback(function ($data) {
                         return strpos($data, 'Аазіс') > 0
                             && strpos($data, 'прыназоўнік') > 0
                             && strpos($data, 'зрабіць (-цца) якім-н') > 0
@@ -87,7 +87,7 @@ class IndexCommandTest extends \PHPUnit_Framework_TestCase
                 [   // send remaining documents to elastic
                     $this->stringContains('bulk'),
                     $this->equalTo('PUT'),
-                    $this->callback(function($data) {
+                    $this->callback(function ($data) {
                         return strpos($data, 'Аб\'езд') > 0
                         && strpos($data, 'мужчынскі род') > 0
                         && strpos($data, 'Перад вёскай') > 0

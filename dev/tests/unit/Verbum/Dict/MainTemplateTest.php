@@ -23,7 +23,7 @@ class MainTemplateTest extends \PHPUnit_Framework_TestCase
             "$type() must return an array of strings"
         );
 
-        $this->assertTrue(array_reduce($template->$type(), function($carry, $item) {
+        $this->assertTrue(array_reduce($template->$type(), function ($carry, $item) {
             return $carry && strpos($item, 'v=') > 0;
         }, true), 'All statics should be boost-able.');
     }

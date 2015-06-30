@@ -62,7 +62,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function prepareElasticClientMock($response)
     {
-        $response = ['hits' => ['hits' => array_map(function($item) {
+        $response = ['hits' => ['hits' => array_map(function ($item) {
             return ['_source' => $item];
         }, $response)]];
         $client = $this->getMock('\Elastica\Client', ['request'], [], '', false);
