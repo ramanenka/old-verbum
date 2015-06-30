@@ -1,9 +1,11 @@
 {
     "require": {
         "ruflin/elastica": "~1.3",
-        "phpunit/phpunit": "~4.4",
-        "squizlabs/php_codesniffer": "~2.0",
         "symfony/console": "^2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "squizlabs/php_codesniffer": "~2.0"
     },
     "autoload": {
         "psr-4": {"Verbum\\": ["app/src/Verbum/", "dev/tests/unit/Verbum/"]}
