@@ -6,9 +6,32 @@ body {margin: 0; font-family: arial, helvetica, clean, sans-serif;}
 .search-form-container {
   padding:20px 0 0 0;
 
-  input {
-    width:100%; font-size:1.5em; padding:5px; box-sizing: border-box; border: 1px solid @border-color;
-    border-top-color: @border-top-color; outline-width: 0;
+  .input-outer {
+    margin-right: 120px;
+    input {
+      width: 100%; font-size: 1.5em; padding: 5px; box-sizing: border-box; border: 1px solid @border-color;
+      border-top-color: @border-top-color; outline-width: 0;
+    }
+  }
+
+  .search-button-outer {
+    float:right;
+    width:120px;
+
+    button {
+      background: #d93434; background-image: linear-gradient(to bottom, #d93434, #b82b2b);
+      color: #ffffff; font-size: 1.5em; padding: 5px 10px 5px 10px; text-decoration: none;
+      width: 100%; border: 1px solid @border-color; border-top-color: @border-top-color; outline-width: 0;
+      border-left: 0;
+
+      &:hover {
+        background: #fc3c3c; background-image: linear-gradient(to bottom, #fc3c3c, #d93434); cursor: pointer;
+
+        &:active {
+          background-image: linear-gradient(to bottom, #d93434, #fc3c3c);
+        }
+      }
+    }
   }
 
   #typeahead {
@@ -16,7 +39,7 @@ body {margin: 0; font-family: arial, helvetica, clean, sans-serif;}
 
     ul {
       position:absolute; margin:0; list-style-type: none; padding: 0; width: 100%; border: 1px solid @border-color;
-      border-top-color: @border-top-color; box-sizing: border-box; background-color: white; font-size: 1.2em;
+      box-sizing: border-box; background-color: white; font-size: 1.2em;
       box-shadow: 1px 1px 3px 0 @typeahead-hover-color;
 
       li {
