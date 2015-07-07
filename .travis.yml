@@ -9,11 +9,15 @@ php:
 
 before_install:
   - composer self-update
+  - npm install -g grunt-cli
 
 before_script:
   - composer install --prefer-source
+  - npm install
   - source profile
+  - npm -v && node -v
 
 script:
   - dev/code-style/phpcs-check
   - cd dev/tests/unit && phpunit --coverage-text -
+  - grunt karma:ci
