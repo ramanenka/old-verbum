@@ -4,7 +4,7 @@
      * @class SearchFormView
      * @constructor
      */
-    var SearchFormView = function() {
+    App.SearchFormView = function() {
         this.el = document.getElementById('search-form');
         this.el.addEventListener('submit', this.onSubmit.bind(this));
 
@@ -18,7 +18,7 @@
      *
      * @param {Event} ev
      */
-    SearchFormView.prototype.onSubmit = function(ev) {
+    App.SearchFormView.prototype.onSubmit = function(ev) {
         ev.preventDefault();
 
         app.setHash(this.input.value);
@@ -33,7 +33,7 @@
      *
      * @param {String} value
      */
-    SearchFormView.prototype.setValue = function(value) {
+    App.SearchFormView.prototype.setValue = function(value) {
         this.input.value = value;
         this.input.select();
     };
@@ -43,7 +43,7 @@
      *
      * @param {KeyboardEvent} ev
      */
-    SearchFormView.prototype.onKeyDown = function(ev) {
+    App.SearchFormView.prototype.onKeyDown = function(ev) {
         this.oldInputValue = this.input.value;
     };
 
@@ -53,7 +53,7 @@
      *
      * @param {KeyboardEvent} ev
      */
-    SearchFormView.prototype.onKeyUp = function(ev) {
+    App.SearchFormView.prototype.onKeyUp = function(ev) {
         var oldValue = this.oldInputValue;
         delete this.oldInputValue;
         if (oldValue == this.input.value) {
@@ -72,6 +72,4 @@
             }
         }.bind(this), 200);
     };
-
-    app.views.search = new SearchFormView();
 })(App);

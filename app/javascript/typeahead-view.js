@@ -4,7 +4,7 @@
      * @class TypeaheadView
      * @constructor
      */
-    var TypeaheadView = function() {
+    App.TypeaheadView = function() {
         this.el = document.getElementById('typeahead');
         this.el.addEventListener('click', this.onSuggestionClick.bind(this));
         window.addEventListener('click', this.hide.bind(this));
@@ -15,7 +15,7 @@
      *
      * @param {MouseEvent} ev
      */
-    TypeaheadView.prototype.onSuggestionClick = function(ev) {
+    App.TypeaheadView.prototype.onSuggestionClick = function(ev) {
         ev.stopPropagation();
         var q = ev.target.getAttribute('data-value');
         app.setCurrentSearch(q);
@@ -29,7 +29,7 @@
      *
      * @param {String} q
      */
-    TypeaheadView.prototype.lookup = function(q) {
+    App.TypeaheadView.prototype.lookup = function(q) {
         app.queryServer('_typeahead/' + q, TypeaheadView.prototype.render.bind(this));
     };
 
@@ -38,7 +38,7 @@
      *
      * @param {Object} data
      */
-    TypeaheadView.prototype.render = function(data) {
+    App.TypeaheadView.prototype.render = function(data) {
         if (data.result.length > 0) {
             var t = app.template('template-typeahead');
             this.el.innerHTML = t({suggestions: data.result});
@@ -51,16 +51,14 @@
     /**
      * Show the typeahead drop-down
      */
-    TypeaheadView.prototype.show = function() {
+    App.TypeaheadView.prototype.show = function() {
         this.el.style.display = '';
     };
 
     /**
      * Hide the typeahead drop-down
      */
-    TypeaheadView.prototype.hide = function() {
+    App.TypeaheadView.prototype.hide = function() {
         this.el.style.display = 'none';
     };
-
-    app.views.typeahead = new TypeaheadView();
 })(App);

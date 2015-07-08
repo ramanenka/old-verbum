@@ -49,12 +49,22 @@ module.exports = function(grunt) {
                 src: 'app/less/frontend.less',
                 dest: 'public/cache/css/frontend.min.css'
             }
+        },
+        karma: {
+            unit: {
+                configFile: 'dev/tests/jasmine/karma.conf.js'
+            },
+            ci: {
+                configFile: 'dev/tests/jasmine/karma.ci.conf.js'
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('default', ['uglify', 'less']);
+    grunt.registerTask('tests', ['karma:unit']);
 
 };
