@@ -32,7 +32,7 @@
                 source += part[i++ + 1] + '\n';
                 i++;
             } else {
-                source += '__result += "' + part.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '";\n'
+                source += '__result += "' + part.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '";\n';
             }
             i++;
         }

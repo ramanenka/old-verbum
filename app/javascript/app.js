@@ -43,7 +43,7 @@ var App = (function() {
         search: function (q) {
             this.queryServer('_search/' + q, function (data) {
                 var t = this.template('template-results');
-                document.getElementById('results').innerHTML = t({articles: data.result})
+                document.getElementById('results').innerHTML = t({articles: data.result});
             }.bind(this));
         },
 
@@ -61,5 +61,5 @@ var App = (function() {
             req.open('GET', url, true);
             req.send();
         }
-    }
+    };
 })();

@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    "use strict";
+    'use strict';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -57,6 +57,12 @@ module.exports = function(grunt) {
             ci: {
                 configFile: 'dev/tests/jasmine/karma.ci.conf.js'
             }
+        },
+        jscs: {
+            options: {
+                config: 'dev/code-style/jscsrc.json'
+            },
+            main: ['Gruntfile.js', 'app/javascript/**/*.js', 'dev/tests/jasmine/**/*.js']
         }
     });
 
@@ -64,6 +70,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-jscs');
     grunt.registerTask('default', ['uglify', 'less']);
     grunt.registerTask('tests', ['karma:unit']);
 

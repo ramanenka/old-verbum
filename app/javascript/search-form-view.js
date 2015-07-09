@@ -64,7 +64,7 @@
             window.clearTimeout(this.typeaheadTimer);
             this.typeaheadTimer = null;
         }
-        this.typeaheadTimer = window.setTimeout(function(){
+        this.typeaheadTimer = window.setTimeout(function() {
             if (this.input.value) {
                 app.views.typeahead.lookup(this.input.value);
             } else {

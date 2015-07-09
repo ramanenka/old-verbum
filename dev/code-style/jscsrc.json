@@ -1,0 +1,6 @@
+{
+    "preset": "yandex",
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    }
+}

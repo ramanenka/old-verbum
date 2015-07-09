@@ -14,5 +14,5 @@ export PATH=$toAdd:$PATH
 
 # checking for pre-commit hook
 if [ ! -f $root/.git/hooks/pre-commit ]; then
-  ln -s $root/dev/code-style/phpcs-check $root/.git/hooks/pre-commit
+  ln -s $root/dev/code-style/pre-commit $root/.git/hooks/pre-commit
 fi

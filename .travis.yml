@@ -18,6 +18,6 @@ before_script:
   - npm -v && node -v
 
 script:
-  - dev/code-style/phpcs-check
+  - dev/code-style/pre-commit
   - cd dev/tests/unit && phpunit --coverage-text -
   - grunt karma:ci

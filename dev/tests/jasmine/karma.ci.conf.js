@@ -11,7 +11,7 @@ module.exports = function(config) {
             'app/javascript/**/*.js': ['coverage']
         },
         coverageReporter: {
-            type : 'text-summary'
+            type: 'text-summary'
         }
     });
 };
