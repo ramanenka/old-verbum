@@ -30,7 +30,7 @@
      * @param {String} q
      */
     App.TypeaheadView.prototype.lookup = function(q) {
-        app.queryServer('_typeahead/' + q, TypeaheadView.prototype.render.bind(this));
+        app.queryServer('_typeahead/' + q, this.render.bind(this));
     };
 
     /**
