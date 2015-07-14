@@ -1,7 +1,7 @@
 (function(app) {
 
     /**
-     * @class TypeaheadView
+     * @class App.TypeaheadView
      * @constructor
      */
     App.TypeaheadView = function() {

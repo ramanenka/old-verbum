@@ -1,7 +1,7 @@
 (function(app) {
 
     /**
-     * @class SearchFormView
+     * @class App.SearchFormView
      * @constructor
      */
     App.SearchFormView = function() {
