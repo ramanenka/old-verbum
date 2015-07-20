@@ -11,6 +11,13 @@ class Request
      */
     protected $params = array();
 
+    /**
+     * List of request headers
+     *
+     * @var array
+     */
+    protected $headers = array();
+
     public function get($name, $default = null)
     {
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
@@ -71,5 +78,43 @@ class Request
     public function getMethod()
     {
         return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
+    }
+
+    /**
+     * Set request headers
+     *
+     * @param array $headers
+     * @return $this
+     */
+    public function setHeaders(array $headers)
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
+    /**
+     * Return request headers
+     *
+     * @return array
+     */
+    public function getHeaders()
+    {
+        if (!$this->headers) {
+            $this->headers = apache_request_headers();
+        }
+
+        return $this->headers;
+    }
+
+    /**
+     * Get request header value
+     *
+     * @param string $name
+     * @param mixed $default
+     * @return string
+     */
+    public function getHeader($name, $default = null)
+    {
+        return isset($this->getHeaders()[$name]) ? $this->getHeaders()[$name] : $default;
     }
 }

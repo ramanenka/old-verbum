@@ -38,7 +38,7 @@ class Dispatcher
     public function getFrontController()
     {
         if (!$this->frontController) {
-            $this->frontController = new FrontController($this->app);
+            $this->frontController = $this->app->getContainer()->get('\Verbum\Core\FrontController');
         }
         return $this->frontController;
     }

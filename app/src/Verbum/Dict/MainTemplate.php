@@ -15,6 +15,13 @@ class MainTemplate
     protected $template = 'app/templates/index.phtml';
 
     /**
+     * Template data
+     *
+     * @var array
+     */
+    protected $data = array();
+
+    /**
      * @return mixed
      */
     public function getTemplate()
@@ -29,6 +36,25 @@ class MainTemplate
     {
         $this->template = $template;
     }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
 
     /**
      * Returns array of javascript files to load on the main page

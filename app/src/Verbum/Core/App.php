@@ -69,6 +69,8 @@ class App
         $container->set('app', $this);
         $container->set('container', $container);
         $container->set('elastic', $this->getElastic());
+        $container->set('request', $this->getRequest());
+        $container->set('response', $this->getResponse());
     }
 
     /**
