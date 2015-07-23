@@ -1,6 +1,7 @@
 <?php
 
 $config = [
+    'action_result_processor' => '\Verbum\Dict\ActionResultProcessor'
 ];
 
 require 'routes.php';

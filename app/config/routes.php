@@ -6,10 +6,10 @@ $config['routes'] = [
         'path' => '',
         'priority' => 100,
     ],
-    'search' => [
+    'search_direct' => [
         'handler' => ['\Verbum\Dict\IndexController', 'searchAction'],
-        'path' => '_search/:q',
-        'priority' => 100,
+        'path' => ':q',
+        'priority' => 50,
     ],
     'typeahead' => [
         'handler' => ['\Verbum\Dict\IndexController', 'typeaheadAction'],

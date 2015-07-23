@@ -54,6 +54,9 @@
 
     <script type="text/javascript">
         App.start();
+        <?php if ($this->getData()) { ?>
+        App.setPreloadedSearch(<?= json_encode($this->getData()); ?>);
+        <?php } ?>
     </script>
 </body>
 </html>

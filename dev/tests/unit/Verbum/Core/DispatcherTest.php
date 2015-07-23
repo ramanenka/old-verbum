@@ -30,10 +30,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $routerMock = $this->prepareRouterMock(['normal', [1, 2, 3]]);
 
-        $fcMock = $this->getMockBuilder('\Verbum\Core\FrontController')
-            ->setConstructorArgs([$this->app])
-            ->setMethods(['serve'])
-            ->getMock();
+        /** @var FrontController|\PHPUnit_Framework_MockObject_MockObject $fcMock */
+        $fcMock = $this->getMock('\Verbum\Core\FrontController', ['serve']);
+        $fcMock->setApp($this->app);
 
         $fcMock->expects($this->once())
             ->method('serve')

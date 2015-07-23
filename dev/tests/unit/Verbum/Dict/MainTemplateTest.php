@@ -39,4 +39,11 @@ class MainTemplateTest extends \PHPUnit_Framework_TestCase
             'render() must include the template and return interpreted text'
         );
     }
+
+    public function testTemplateData()
+    {
+        $template = new MainTemplate();
+        $this->assertSame($template, $template->setData(['data1' => 'value1', 'data2' => 'value2']));
+        $this->assertInternalType('array', $template->getData());
+    }
 }

@@ -45,4 +45,19 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('value1', $request->getParam('param1'));
         $this->assertEquals('value1', $request->getParam('param1', 'value2'));
     }
+
+    public function testHeaders()
+    {
+        $request = new Request();
+        $headers = [
+            'header1' => 'value1',
+            'header2' => 'value2',
+        ];
+
+        $this->assertSame($request, $request->setHeaders($headers));
+        $this->assertEquals($headers, $request->getHeaders());
+        $this->assertEquals('value1', $request->getHeader('header1'));
+        $this->assertEquals('value3', $request->getHeader('header3', 'value3'));
+        $this->assertNull($request->getHeader('header3'));
+    }
 }

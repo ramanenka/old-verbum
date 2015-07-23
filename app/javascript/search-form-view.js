@@ -21,7 +21,6 @@
     App.SearchFormView.prototype.onSubmit = function(ev) {
         ev.preventDefault();
 
-        app.setHash(this.input.value);
         app.search(this.input.value);
 
         app.views.typeahead.hide();

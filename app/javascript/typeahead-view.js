@@ -19,7 +19,6 @@
         ev.stopPropagation();
         var q = ev.target.getAttribute('data-value');
         app.setCurrentSearch(q);
-        app.setHash(q);
         app.search(q);
         this.hide();
     };

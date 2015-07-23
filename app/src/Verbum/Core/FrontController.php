@@ -2,6 +2,8 @@
 
 namespace Verbum\Core;
 
+use Verbum\Core\DI\Container;
+
 class FrontController
 {
     /**
@@ -10,35 +12,52 @@ class FrontController
     protected $app;
 
     /**
+     * @var Container
+     */
+    protected $container;
+
+    /**
      * Class name of the default controller
      *
      * @var string
      */
     protected $defaultControllerClass = 'Verbum\Core\DefaultController';
 
-    public function __construct(App $app)
+    /**
+     * @param App $app
+     * @inject app
+     * @return $this
+     */
+    public function setApp($app)
     {
         $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @param Container $container
+     * @inject container
+     * @return $this
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+        return $this;
     }
 
     public function serve($handler)
     {
         $actionResult = $this->callHandler($handler);
-        $this->processActionResult($actionResult);
+        if ($actionResult) {
+            $this->processActionResult($actionResult);
+        }
     }
 
     protected function processActionResult($actionResult)
     {
-        if (is_array($actionResult)) {
-            $this->processActionResultJSON($actionResult);
-        }
-    }
-
-    protected function processActionResultJSON($actionResult)
-    {
-        $this->app->getResponse()
-            ->setContent(json_encode($actionResult))
-            ->setHeader('Content-Type', 'application/json');
+        /** @var ActionResultProcessor $processor */
+        $processor = $this->container->get($this->app->config['action_result_processor']);
+        $processor->process($actionResult);
     }
 
     protected function callHandler($handler)
@@ -51,7 +70,7 @@ class FrontController
 
     protected function instantiateController($class)
     {
-        return $this->app->getContainer()->get($class);
+        return $this->container->get($class);
     }
 
     protected function prepareActionArguments($controller, $action)

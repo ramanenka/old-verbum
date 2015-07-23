@@ -2,6 +2,8 @@
 
 namespace Verbum\Core;
 
+use Verbum\Core\DI\Container;
+
 class FrontControllerTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -32,7 +34,14 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException('\Verbum\Core\Exception');
         }
 
-        $fc = new FrontController($this->app);
+        $this->app->config['action_result_processor'] = '\Verbum\Core\FrontControllerTest\ActionResultProcessor';
+
+        $fc = new FrontController();
+        $fc->setApp($this->app);
+
+        $container = new Container();
+        $container->set('response', $this->app->getResponse());
+        $fc->setContainer($container);
         $this->app->getRequest()->setParams($params);
 
         $fc->serve($handler);
@@ -101,10 +110,7 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFound()
     {
-        $controller = $this->getMockBuilder('Verbum\Core\FrontController')
-            ->setMethods(['callHandler'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $controller = $this->getMock('Verbum\Core\FrontController', ['callHandler']);
 
         $controller->expects($this->once())
             ->method('callHandler')
@@ -115,10 +121,9 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testException()
     {
-        $controller = $this->getMockBuilder('Verbum\Core\FrontController')
-            ->setMethods(['callHandler'])
-            ->setConstructorArgs([$this->app])
-            ->getMock();
+        /** @var FrontController|\PHPUnit_Framework_MockObject_MockObject $controller */
+        $controller = $this->getMock('Verbum\Core\FrontController', ['callHandler']);
+        $controller->setApp($this->app);
 
         $controller->expects($this->once())
             ->method('callHandler')
@@ -128,5 +133,31 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
         $controller->exception($e);
 
         $this->assertSame($e, $this->app->getRequest()->getParam('exception'));
+    }
+
+    public function testActionResultInvocation()
+    {
+        $this->app->config['action_result_processor'] = '\Some\Action\Result\Processor\Class';
+
+        $actionResultProcessor = $this->getMock('\Verbum\Core\ActionResultProcessor', ['process']);
+        $actionResultProcessor->expects($this->once())
+            ->method('process')
+            ->with('action-result-1');
+
+        /** @var Container|\PHPUnit_Framework_MockObject_MockObject $container */
+        $container = $this->getMock('\Verbum\Core\DI\Container', ['get']);
+        $container->expects($this->once())
+            ->method('get')
+            ->willReturnMap([['\Some\Action\Result\Processor\Class', $actionResultProcessor]]);
+
+        /** @var FrontController|\PHPUnit_Framework_MockObject_MockObject $controller */
+        $controller = $this->getMock('Verbum\Core\FrontController', ['callHandler']);
+        $controller->expects($this->once())
+            ->method('callHandler')
+            ->willReturn('action-result-1');
+        $controller->setApp($this->app);
+        $controller->setContainer($container);
+
+        $controller->serve(['some_handler']);
     }
 }

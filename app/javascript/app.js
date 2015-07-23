@@ -9,12 +9,9 @@ var App = (function() {
         start: function () {
             this.views.search = new App.SearchFormView();
             this.views.typeahead = new App.TypeaheadView();
-
-            if (window.location.hash) {
-                var q = window.location.hash.substr(1);
-                this.setCurrentSearch(q);
-                this.search(q);
-            }
+            window.addEventListener('popstate', function (e) {
+                this.setPreloadedSearch(e.state || {q: '', results: {result: []}});
+            }.bind(this));
         },
 
         /**
@@ -27,12 +24,12 @@ var App = (function() {
         },
 
         /**
-         * Set the location hash
+         * Set the location path
          *
-         * @param {String} hash
+         * @param {String} path
          */
-        setHash: function (hash) {
-            window.location.hash = hash;
+        setLocation: function (path) {
+            window.history.pushState({}, '', path);
         },
 
         /**
@@ -41,10 +38,32 @@ var App = (function() {
          * @param {String} q
          */
         search: function (q) {
-            this.queryServer('_search/' + q, function (data) {
-                var t = this.template('template-results');
-                document.getElementById('results').innerHTML = t({articles: data.result});
+            this.setLocation(q);
+            this.queryServer(q, function(data) {
+                window.history.replaceState({q: q, results: data}, '', q);
+                this.renderResults(data);
             }.bind(this));
+        },
+
+        /**
+         * Set preloaded search without making the request to the server
+         *
+         * @param data
+         */
+        setPreloadedSearch: function (data) {
+            this.setCurrentSearch(data.q);
+            this.renderResults(data.results);
+            window.history.replaceState(data, '', data.q);
+        },
+
+        /**
+         * Update results view with the data
+         *
+         * @param {Array} data
+         */
+        renderResults: function (data) {
+            var t = this.template('template-results');
+            document.getElementById('results').innerHTML = t({articles: data.result});
         },
 
         /**
@@ -59,6 +78,7 @@ var App = (function() {
                 onSuccessCallback(JSON.parse(this.response));
             });
             req.open('GET', url, true);
+            req.setRequestHeader('Accept', 'application/json');
             req.send();
         }
     };
