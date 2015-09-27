@@ -1,5 +1,9 @@
 (function(app) {
 
+    const ENTER_KEY_CODE = 13;
+    const UPWARDS_ARROW_KEY_CODE = 38;
+    const DOWNWARDS_ARROW_KEY_CODE = 40;
+
     /**
      * @class App.SearchFormView
      * @constructor
@@ -43,6 +47,13 @@
      * @param {KeyboardEvent} ev
      */
     App.SearchFormView.prototype.onKeyDown = function(ev) {
+        if (ev.keyCode == UPWARDS_ARROW_KEY_CODE && app.views.typeahead.hasSuggestions()) {
+            ev.preventDefault();
+        }
+        if (ev.keyCode == ENTER_KEY_CODE && app.views.typeahead.hasActiveSuggestion()) {
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
         this.oldInputValue = this.input.value;
     };
 
@@ -53,6 +64,23 @@
      * @param {KeyboardEvent} ev
      */
     App.SearchFormView.prototype.onKeyUp = function(ev) {
+        if (app.views.typeahead.hasSuggestions()) {
+            switch (ev.keyCode) {
+                case ENTER_KEY_CODE:
+                    if (app.views.typeahead.hasActiveSuggestion()) {
+                        app.views.typeahead.useActiveSuggestion();
+                        return;
+                    }
+                    break;
+                case DOWNWARDS_ARROW_KEY_CODE:
+                    app.views.typeahead.nextSuggestion();
+                    return;
+                case UPWARDS_ARROW_KEY_CODE:
+                    app.views.typeahead.prevSuggestion();
+                    return;
+            }
+        }
+
         var oldValue = this.oldInputValue;
         delete this.oldInputValue;
         if (oldValue == this.input.value) {
